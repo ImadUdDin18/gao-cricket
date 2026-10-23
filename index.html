@@ -200,6 +200,26 @@ textarea{min-height:200px;line-height:1.5;resize:vertical}
 .fl-win b{font-size:44px}
 @keyframes flpop{0%{opacity:0;transform:scale(.55) rotate(-3deg)}12%{opacity:1;transform:scale(1.1) rotate(1deg)}25%{transform:scale(1) rotate(0)}85%{opacity:1}100%{opacity:0;transform:scale(1.05)}}
 @media (prefers-reduced-motion:reduce){.fl{animation:none}}
+
+body.ov{background:transparent!important;padding:0!important}
+.ov .app{max-width:none;gap:0}
+.ovbar{position:fixed;left:2vw;right:2vw;bottom:3vh;display:flex;align-items:stretch;border-radius:12px;overflow:hidden;font-size:clamp(13px,1.9vw,30px);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.45);font-family:var(--f-body);flex-wrap:wrap}
+.ov-l{background:linear-gradient(180deg,#0E6B3E,#0B4D2C);padding:.5em 1em;display:flex;align-items:baseline;gap:.7em;border-right:.2em solid var(--gold)}
+.ov-t{font-family:var(--f-disp);text-transform:uppercase;color:var(--gold);font-size:1.1em;font-weight:700;letter-spacing:.04em}
+.ov-s{font-family:var(--f-disp);font-size:2.2em;font-weight:600;line-height:1}
+.ov-s b{font-weight:700}
+.ov-o{opacity:.85;font-size:.85em}
+.ov-m{background:rgba(10,20,15,.9);padding:.4em 1em;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.2em}
+.ov-row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.ov-row.dim{opacity:.92;font-size:.85em}
+.ob b{font-family:var(--f-disp);font-size:1.15em}
+.ob i{opacity:.7;font-style:normal}
+.ob.st{color:var(--gold)}
+.obls{display:inline-flex;gap:.3em}
+.obl{min-width:1.7em;height:1.7em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);font-family:var(--f-disp);font-weight:700;font-size:.9em;padding:0 .25em}
+.obl.k-four{background:#2B63D1}.obl.k-six{background:#12A05C}.obl.k-w{background:#D8402B}.obl.k-ex{background:#B97F00}
+.ofh{background:var(--gold);color:#3A2800;font-weight:700;border-radius:.4em;padding:0 .5em}
+.ov-r{background:rgba(6,14,10,.95);padding:.4em 1em;display:flex;align-items:center;font-size:.9em;border-left:.15em solid rgba(255,255,255,.2)}
 @media (prefers-reduced-motion:no-preference){.key{transition:transform .06s}}
 @media (max-width:380px){.runs{font-size:70px}.pl{grid-template-columns:1fr}}
 </style>
@@ -425,6 +445,19 @@ function summary(){
 }
 
 /* ---------- views ---------- */
+function viewOverlay(){
+  var I=cur(),bt=S.teams[I.bat];
+  var one=function(i,star){if(i==null)return '';var x=I.bt[i];return '<span class="ob'+(star?' st':'')+'">'+esc(pl(I.bat,i))+(star?' *':'')+' <b>'+x.r+'</b> <i>('+x.b+')</i></span>'};
+  var bw=I.bowler!=null?I.bw[I.bowler]:null;
+  var balls=I.ob.map(function(b){return '<span class="obl k-'+b.k+'">'+esc(b.l)+'</span>'}).join('');
+  var info='';
+  if(S.over)info='<b>'+esc(S.result)+'</b>';
+  else if(I.target!=null){var need=I.target-I.runs,left=S.cfg.overs*6-I.balls;info='Target <b>&nbsp;'+I.target+'&nbsp;</b> · '+(need>0?'<b>&nbsp;'+need+'&nbsp;</b> run / <b>&nbsp;'+left+'&nbsp;</b> gend':'poora')}
+  else info='Run rate <b>&nbsp;'+(I.balls?(I.runs*6/I.balls).toFixed(2):'0.00')+'</b>';
+  var fh=I.fh&&!I.done?'<span class="ofh">FREE HIT</span>':'';
+  return '<div class="ovbar"><div class="ov-l"><span class="ov-t">'+esc(bt.name)+'</span><span class="ov-s"><b>'+I.runs+'</b>/'+I.wkts+'</span><span class="ov-o">'+ov(I.balls)+' / '+S.cfg.overs+' ov</span></div>'+
+   '<div class="ov-m"><div class="ov-row">'+one(I.st,1)+one(I.ns,0)+'</div><div class="ov-row dim">'+(bw?'<span>'+esc(pl(I.bowl,I.bowler))+' <b>'+ov(bw.b)+'-'+bw.m+'-'+bw.r+'-'+bw.w+'</b></span>':'')+'<span class="obls">'+balls+'</span>'+fh+'</div></div><div class="ov-r">'+info+'</div></div>';
+}
 function viewWait(){
   return '<header><h1>Gao Cricket Live</h1></header><div class="card"><h2>'+(ui.vErr?'Live score nahi mil raha':'Match abhi shuru nahi hua')+'</h2><p class="muted">'+(ui.vErr?'Internet check karo aur link dobara kholo.':'Jaise hi scorer match shuru karega, score yahan apne aap aa jayega. Page refresh karne ki zaroorat nahi.')+'</p></div>';
 }
@@ -552,6 +585,7 @@ function viewMenu(){
   var h='<header><h2>Menu</h2></header>'+
    '<div class="card"><h3>Match ki setting</h3><p>'+esc(S.teams[0].name)+' vs '+esc(S.teams[1].name)+'</p><p class="muted">'+S.cfg.overs+' over · Wide '+S.cfg.wide+' run · No Ball '+S.cfg.nb+' run · Free Hit '+(S.cfg.fh?'ON':'OFF')+(S.cfg.maxb?' · Bowler max '+S.cfg.maxb+' over':'')+'</p></div>'+
    '<div class="card"><h3>Live link (sab ke liye)</h3><p class="muted">Ye link kisi ko bhi WhatsApp karo. Login ya Claude account nahi chahiye. Naye match pe bhi yehi link chalta hai.</p><textarea id="lvurl" readonly style="min-height:70px">'+esc(baseUrl()+'#live='+live.code)+'</textarea><button class="btn pri" data-a="copylink">Link copy karo</button><p id="livest">'+liveStatus()+'</p></div>'+
+   '<div class="card"><h3>TV jaisa score (live video ke liye)</h3><p class="muted">Ye link OBS ya streaming app main "Browser source" ya "Web overlay" main daalo. Video ke neeche TV jaisi score patti aayegi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#overlay='+live.code)+'</textarea><button class="btn pri" data-a="copyov">Overlay link copy karo</button></div>'+
    '<div class="card"><h3>WhatsApp pe bhejo</h3><button class="btn pri" data-a="copy">Score copy karo</button>'+(ui.sum?'<textarea id="sumbox" readonly style="min-height:180px">'+esc(ui.sum)+'</textarea>':'')+'</div>';
   if(!ended)h+='<div class="card"><h3>Innings</h3>'+(ui.confirm==='end'?'<p>Pakka innings abhi khatam karni hai?</p><div class="two"><button class="btn red" data-a="endyes">Haan, khatam</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="endask">Innings abhi khatam karo (time khatam / declare)</button>')+'</div>';
   h+='<div class="card"><h3>Naya match</h3>'+(ui.confirm==='new'?'<p>Purana match hamesha ke liye hat jayega. Pakka?</p><div class="two"><button class="btn red" data-a="newyes">Haan, naya match</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="newask">Naya match shuru karo</button>')+'</div>';
@@ -642,6 +676,7 @@ function sheetHtml(){
 
 function render(){
   var app=$('app');
+  if(ui.overlay){document.body.classList.add('ov');app.innerHTML=(S&&!ui.boot)?viewOverlay():'';$('nav').innerHTML='';$('sheet').innerHTML='';if(S)checkFlash();return}
   if(ui.boot){app.innerHTML='<p class="muted">Load ho raha hai…</p>';$('nav').innerHTML='';$('sheet').innerHTML='';return}
   if(!S&&ui.viewer){app.innerHTML=viewWait();$('nav').innerHTML='';$('sheet').innerHTML='';return}
   if(!S){app.innerHTML=viewSetup();$('nav').innerHTML='';$('sheet').innerHTML='';return}
@@ -721,6 +756,7 @@ function act(a,d){
     case 'rensave':{var v=$('renin').value.trim();if(v){var r=ui.ren;ui.sheet=null;mut(function(){S.teams[r.t].players[r.i]=v})}break}
     case 'copy':{ui.sum=summary();render();var tx=ui.sum;try{navigator.clipboard.writeText(tx).then(function(){toast('Copy ho gaya — WhatsApp main paste karo')},function(){toast('Neeche likhe score ko select karke copy karo')})}catch(e){toast('Neeche likhe score ko select karke copy karo')}break}
     case 'copylink':{var u=baseUrl()+'#live='+live.code;try{navigator.clipboard.writeText(u).then(function(){toast('Link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
+    case 'copyov':{var u2=baseUrl()+'#overlay='+live.code;try{navigator.clipboard.writeText(u2).then(function(){toast('Overlay link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'endask':ui.confirm='end';render();break;
     case 'endyes':ui.confirm=null;ui.tab='score';mut(function(){var J=cur();J.done=true;J.pend=[];J.why='Innings manual khatam';endInnings()});break;
     case 'newask':ui.confirm='new';render();break;
@@ -748,8 +784,8 @@ load();
 if(location.hash==='#naya'){S=null;hist=[];try{localStorage.removeItem(KEY)}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
-var wm=location.hash.match(/^#live=([a-z0-9]+)/i);
-if(wm){startViewer(wm[1])}else{render();if(S)pushLive(true)}
+var wm=location.hash.match(/^#(live|overlay)=([a-z0-9]+)/i);
+if(wm){if(wm[1].toLowerCase()==='overlay')ui.overlay=true;startViewer(wm[2])}else{render();if(S)pushLive(true)}
 })();
 </script>
 </body></html>
