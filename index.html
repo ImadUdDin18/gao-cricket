@@ -220,6 +220,12 @@ body.ov{background:transparent!important;padding:0!important}
 .obl.k-four{background:#2B63D1}.obl.k-six{background:#12A05C}.obl.k-w{background:#D8402B}.obl.k-ex{background:#B97F00}
 .ofh{background:var(--gold);color:#3A2800;font-weight:700;border-radius:.4em;padding:0 .5em}
 .ov-r{background:rgba(6,14,10,.95);padding:.4em 1em;display:flex;align-items:center;font-size:.9em;border-left:.15em solid rgba(255,255,255,.2)}
+.strip .ovbar,body.strip .ovbar{left:0;right:0;top:0;bottom:0;border-radius:0;box-shadow:none;flex-wrap:nowrap;font-size:clamp(8px,2.1vw,22px)}
+body.strip .ov-row{flex-wrap:nowrap;gap:.8em;white-space:nowrap}
+body.strip .ov-m{overflow:hidden}
+body.strip .ov-l{gap:.5em;padding:.3em .7em}
+body.strip .ov-r{padding:.3em .7em;white-space:nowrap}
+body.strip{background:#0A140E!important}
 @media (prefers-reduced-motion:no-preference){.key{transition:transform .06s}}
 @media (max-width:380px){.runs{font-size:70px}.pl{grid-template-columns:1fr}}
 </style>
@@ -586,6 +592,7 @@ function viewMenu(){
    '<div class="card"><h3>Match ki setting</h3><p>'+esc(S.teams[0].name)+' vs '+esc(S.teams[1].name)+'</p><p class="muted">'+S.cfg.overs+' over · Wide '+S.cfg.wide+' run · No Ball '+S.cfg.nb+' run · Free Hit '+(S.cfg.fh?'ON':'OFF')+(S.cfg.maxb?' · Bowler max '+S.cfg.maxb+' over':'')+'</p></div>'+
    '<div class="card"><h3>Live link (sab ke liye)</h3><p class="muted">Ye link kisi ko bhi WhatsApp karo. Login ya Claude account nahi chahiye. Naye match pe bhi yehi link chalta hai.</p><textarea id="lvurl" readonly style="min-height:70px">'+esc(baseUrl()+'#live='+live.code)+'</textarea><button class="btn pri" data-a="copylink">Link copy karo</button><p id="livest">'+liveStatus()+'</p></div>'+
    '<div class="card"><h3>TV jaisa score (live video ke liye)</h3><p class="muted">Ye link OBS ya streaming app main "Browser source" ya "Web overlay" main daalo. Video ke neeche TV jaisi score patti aayegi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#overlay='+live.code)+'</textarea><button class="btn pri" data-a="copyov">Overlay link copy karo</button></div>'+
+   '<div class="card"><h3>Phone streaming app ke liye (sirf patti)</h3><p class="muted">Agar Streamlabs main patti ke peeche safed dabba aaye to ye link use karo. Patti poori layer bhar degi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#strip='+live.code)+'</textarea><button class="btn pri" data-a="copystrip">Strip link copy karo</button></div>'+
    '<div class="card"><h3>WhatsApp pe bhejo</h3><button class="btn pri" data-a="copy">Score copy karo</button>'+(ui.sum?'<textarea id="sumbox" readonly style="min-height:180px">'+esc(ui.sum)+'</textarea>':'')+'</div>';
   if(!ended)h+='<div class="card"><h3>Innings</h3>'+(ui.confirm==='end'?'<p>Pakka innings abhi khatam karni hai?</p><div class="two"><button class="btn red" data-a="endyes">Haan, khatam</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="endask">Innings abhi khatam karo (time khatam / declare)</button>')+'</div>';
   h+='<div class="card"><h3>Naya match</h3>'+(ui.confirm==='new'?'<p>Purana match hamesha ke liye hat jayega. Pakka?</p><div class="two"><button class="btn red" data-a="newyes">Haan, naya match</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="newask">Naya match shuru karo</button>')+'</div>';
@@ -676,7 +683,7 @@ function sheetHtml(){
 
 function render(){
   var app=$('app');
-  if(ui.overlay){document.body.classList.add('ov');app.innerHTML=(S&&!ui.boot)?viewOverlay():'';$('nav').innerHTML='';$('sheet').innerHTML='';if(S)checkFlash();return}
+  if(ui.overlay){document.body.classList.add('ov');if(ui.strip)document.body.classList.add('strip');app.innerHTML=(S&&!ui.boot)?viewOverlay():'';$('nav').innerHTML='';$('sheet').innerHTML='';if(S)checkFlash();return}
   if(ui.boot){app.innerHTML='<p class="muted">Load ho raha hai…</p>';$('nav').innerHTML='';$('sheet').innerHTML='';return}
   if(!S&&ui.viewer){app.innerHTML=viewWait();$('nav').innerHTML='';$('sheet').innerHTML='';return}
   if(!S){app.innerHTML=viewSetup();$('nav').innerHTML='';$('sheet').innerHTML='';return}
@@ -757,6 +764,7 @@ function act(a,d){
     case 'copy':{ui.sum=summary();render();var tx=ui.sum;try{navigator.clipboard.writeText(tx).then(function(){toast('Copy ho gaya — WhatsApp main paste karo')},function(){toast('Neeche likhe score ko select karke copy karo')})}catch(e){toast('Neeche likhe score ko select karke copy karo')}break}
     case 'copylink':{var u=baseUrl()+'#live='+live.code;try{navigator.clipboard.writeText(u).then(function(){toast('Link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copyov':{var u2=baseUrl()+'#overlay='+live.code;try{navigator.clipboard.writeText(u2).then(function(){toast('Overlay link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
+    case 'copystrip':{var u3=baseUrl()+'#strip='+live.code;try{navigator.clipboard.writeText(u3).then(function(){toast('Strip link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'endask':ui.confirm='end';render();break;
     case 'endyes':ui.confirm=null;ui.tab='score';mut(function(){var J=cur();J.done=true;J.pend=[];J.why='Innings manual khatam';endInnings()});break;
     case 'newask':ui.confirm='new';render();break;
@@ -784,8 +792,8 @@ load();
 if(location.hash==='#naya'){S=null;hist=[];try{localStorage.removeItem(KEY)}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
-var wm=location.hash.match(/^#(live|overlay)=([a-z0-9]+)/i);
-if(wm){if(wm[1].toLowerCase()==='overlay')ui.overlay=true;startViewer(wm[2])}else{render();if(S)pushLive(true)}
+var wm=location.hash.match(/^#(live|overlay|strip)=([a-z0-9]+)/i);
+if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true;if(m1==='strip')ui.strip=true}startViewer(wm[2])}else{render();if(S)pushLive(true)}
 })();
 </script>
 </body></html>
