@@ -593,6 +593,7 @@ function viewMenu(){
    '<div class="card"><h3>Live link (sab ke liye)</h3><p class="muted">Ye link kisi ko bhi WhatsApp karo. Login ya Claude account nahi chahiye. Naye match pe bhi yehi link chalta hai.</p><textarea id="lvurl" readonly style="min-height:70px">'+esc(baseUrl()+'#live='+live.code)+'</textarea><button class="btn pri" data-a="copylink">Link copy karo</button><p id="livest">'+liveStatus()+'</p></div>'+
    '<div class="card"><h3>TV jaisa score (live video ke liye)</h3><p class="muted">Ye link OBS ya streaming app main "Browser source" ya "Web overlay" main daalo. Video ke neeche TV jaisi score patti aayegi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#overlay='+live.code)+'</textarea><button class="btn pri" data-a="copyov">Overlay link copy karo</button></div>'+
    '<div class="card"><h3>Phone streaming app ke liye (sirf patti)</h3><p class="muted">Agar Streamlabs main patti ke peeche safed dabba aaye to ye link use karo. Patti poori layer bhar degi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#strip='+live.code)+'</textarea><button class="btn pri" data-a="copystrip">Strip link copy karo</button></div>'+
+   '<div class="card"><h3>Dusre phone se score likhna ho</h3><p class="muted">Live wale phone pe score nahi likh sakte. Ye link dusre phone pe kholo. Us phone se score likhne par isi code ki patti badlegi. Us phone pe naya match shuru karna hoga.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#scorer='+live.code)+'</textarea><button class="btn pri" data-a="copyscorer">Scorer link copy karo</button></div>'+
    '<div class="card"><h3>WhatsApp pe bhejo</h3><button class="btn pri" data-a="copy">Score copy karo</button>'+(ui.sum?'<textarea id="sumbox" readonly style="min-height:180px">'+esc(ui.sum)+'</textarea>':'')+'</div>';
   if(!ended)h+='<div class="card"><h3>Innings</h3>'+(ui.confirm==='end'?'<p>Pakka innings abhi khatam karni hai?</p><div class="two"><button class="btn red" data-a="endyes">Haan, khatam</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="endask">Innings abhi khatam karo (time khatam / declare)</button>')+'</div>';
   h+='<div class="card"><h3>Naya match</h3>'+(ui.confirm==='new'?'<p>Purana match hamesha ke liye hat jayega. Pakka?</p><div class="two"><button class="btn red" data-a="newyes">Haan, naya match</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="newask">Naya match shuru karo</button>')+'</div>';
@@ -765,6 +766,7 @@ function act(a,d){
     case 'copylink':{var u=baseUrl()+'#live='+live.code;try{navigator.clipboard.writeText(u).then(function(){toast('Link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copyov':{var u2=baseUrl()+'#overlay='+live.code;try{navigator.clipboard.writeText(u2).then(function(){toast('Overlay link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copystrip':{var u3=baseUrl()+'#strip='+live.code;try{navigator.clipboard.writeText(u3).then(function(){toast('Strip link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
+    case 'copyscorer':{var u4=baseUrl()+'#scorer='+live.code;try{navigator.clipboard.writeText(u4).then(function(){toast('Scorer link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'endask':ui.confirm='end';render();break;
     case 'endyes':ui.confirm=null;ui.tab='score';mut(function(){var J=cur();J.done=true;J.pend=[];J.why='Innings manual khatam';endInnings()});break;
     case 'newask':ui.confirm='new';render();break;
@@ -790,6 +792,8 @@ document.addEventListener('change',function(e){
 
 load();
 if(location.hash==='#naya'){S=null;hist=[];try{localStorage.removeItem(KEY)}catch(e){}}
+var sm=location.hash.match(/^#scorer=([a-z0-9]+)/i);
+if(sm){try{localStorage.setItem('gao-code',sm[1].toLowerCase())}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
 var wm=location.hash.match(/^#(live|overlay|strip)=([a-z0-9]+)/i);
