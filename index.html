@@ -206,7 +206,15 @@ textarea{min-height:200px;line-height:1.5;resize:vertical}
 body.ov{background:transparent!important;padding:0!important}
 .ov .app{max-width:none;gap:0}
 body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:none!important}
-.ovwrap{position:fixed;left:2vw;right:2vw;bottom:3vh;display:flex;flex-direction:column;gap:.7em;font-size:clamp(16px,2.5vw,40px)}
+.ovwrap{position:fixed;left:2vw;right:2vw;bottom:3vh;display:flex;flex-direction:column;gap:.7em;font-size:calc(var(--k,1)*clamp(16px,2.5vw,40px))}
+.ovwrap.top{top:3vh;bottom:auto}
+.ov-tag{align-self:flex-start;background:#0B4D2C;color:#FFE45C;font-weight:800;font-size:.8em;letter-spacing:.07em;text-transform:uppercase;padding:.25em .9em;border-radius:.6em;box-shadow:0 0 0 .1em #FFD400;margin-bottom:-.35em;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ov-tick{background:rgba(4,16,10,.95);color:#fff;border-radius:.6em;overflow:hidden;white-space:nowrap;font-weight:700;font-size:.85em;padding:.3em 0;box-shadow:0 0 0 .1em #FFD400}
+.ov-tick span{display:inline-block;padding-left:100%;animation:ovtk 18s linear infinite}
+@keyframes ovtk{to{transform:translateX(-100%)}}
+.xi{display:grid;grid-template-columns:1fr 1fr}
+.xi>div:first-child{border-right:1px solid rgba(255,255,255,.2)}
+.xi h5{margin:0;padding:.35em .9em;background:rgba(255,255,255,.1);color:#FFE45C;font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.05em;font-size:1.05em}
 .ovbar{position:relative;display:flex;font-size:1em;align-items:stretch;border-radius:14px;overflow:hidden;font-size:clamp(16px,2.5vw,40px);color:#fff;box-shadow:0 0 0 .12em #FFD400,0 10px 34px rgba(0,0,0,.6);font-family:var(--f-body);flex-wrap:wrap}
 .ov-l{background:linear-gradient(180deg,#FFE45C,#FFC400);color:#1B1300;padding:.35em .9em;display:flex;align-items:baseline;gap:.6em;border-right:.18em solid #0B4D2C}
 .ov-t{font-family:var(--f-disp);text-transform:uppercase;color:#0B4D2C;font-size:1.05em;font-weight:800;letter-spacing:.04em}
@@ -246,6 +254,8 @@ body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:
 .ovp .fx{padding:.3em .9em;border-bottom:1px solid rgba(255,255,255,.12)}
 .ovp .fx.k-six{color:#7CFFB2;font-weight:800}.ovp .fx.k-four{color:#8DB5FF;font-weight:800}.ovp .fx.k-w{color:#FF8A78;font-weight:800}
 .tvc .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.tvst{font-size:14px;font-weight:700;margin:6px 0 0}.tvst.ok{color:#0B7A43}.tvst.bad{color:#B5361F}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
 .tvc .btn{min-height:50px}
 .strip .ovwrap,body.strip .ovwrap{left:0;right:0;top:0;bottom:0;font-size:clamp(8px,2.1vw,22px)}
 .strip .ovbar,body.strip .ovbar{position:fixed;left:0;right:0;top:0;bottom:0;border-radius:0;box-shadow:none;flex-wrap:nowrap;font-size:clamp(8px,2.1vw,22px)}
@@ -256,7 +266,7 @@ body.strip .ov-r{padding:.3em .7em;white-space:nowrap}
 body.strip{background:#0A140E!important}
 body.strip .ovp{display:none}
 body.strip .ov-fl b{font-size:1.5em}
-@media (max-width:700px){body:not(.strip) .ovwrap{font-size:clamp(13px,3.7vw,26px)}body:not(.strip) .ov-l{flex:1 1 100%;border-right:0;justify-content:space-between}body:not(.strip) .ov-m{flex:1 1 100%}body:not(.strip) .ov-r{flex:1 1 100%;border-left:0;justify-content:center}.ov-fl{padding:.5em .6em}}
+@media (max-width:700px){body:not(.strip) .ovwrap{font-size:calc(var(--k,1)*clamp(13px,3.7vw,26px))}body:not(.strip) .ov-l{flex:1 1 100%;border-right:0;justify-content:space-between}body:not(.strip) .ov-m{flex:1 1 100%}body:not(.strip) .ov-r{flex:1 1 100%;border-left:0;justify-content:center}.ov-fl{padding:.5em .6em}}
 @media (prefers-reduced-motion:no-preference){.key{transition:transform .06s}}
 @media (max-width:380px){.runs{font-size:70px}.pl{grid-template-columns:1fr}}
 </style>
@@ -272,11 +282,11 @@ body.strip .ov-fl b{font-size:1.5em}
 <script>
 (function(){
 'use strict';
-var KEY='gao-cricket-v1';
+var KEY='gao-cricket-v1',VER='v6',OVD={hide:0,pos:'b',sz:1,title:'',tick:''};
 var S=null, hist=[];
 var ui={tab:'score',sheet:null,sv:0,op:{st:null,ns:null,bw:null},w:{k:'bowled',who:'st',fl:null,ball:'n',r:0},ex:{k:null,bye:false},ren:null,confirm:null,sum:'',err:''};
-var setup={n:['Team A','Team B'],t:['',''],overs:6,wide:1,nb:1,fh:true,maxb:0,first:null};
-var live={code:null,role:'scorer',ok:false,busy:false,dirty:false,t:null};
+var setup={n:['Team A','Team B'],t:['',''],overs:6,wide:1,nb:1,fh:true,maxb:0,first:null,ovs:null};
+var live={code:null,role:'scorer',ok:false,busy:false,dirty:false,t:null,hb:null};
 var KINDS={bowled:'Bowled',caught:'Caught',lbw:'LBW',runout:'Run Out',stumped:'Stumped',hitwkt:'Hit Wicket'};
 var $=function(id){return document.getElementById(id)};
 var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
@@ -347,6 +357,7 @@ function startViewer(code){
     es.onerror=function(){if(ui.boot){ui.vErr=true}};
   }catch(e){ui.vErr=true}
   setTimeout(function(){if(ui.boot){ui.boot=false;render()}},5000);
+  if(ui.overlay)startHbSend(code);
 }
 
 function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){S=d.S;hist=d.hist||[];if(d.setup)Object.assign(setup,d.setup)}}catch(e){}}
@@ -374,7 +385,7 @@ function startMatch(){
   ui.err='';
   S={cfg:{overs:setup.overs,wide:setup.wide,nb:setup.nb,fh:setup.fh,maxb:setup.maxb},
      teams:[{name:setup.n[0].trim()||'Team A',players:names[0]},{name:setup.n[1].trim()||'Team B',players:names[1]}],
-     inn:[newInn(setup.first)],cur:0,brk:false,over:false,result:''};
+     inn:[newInn(setup.first)],cur:0,brk:false,over:false,result:'',ovs:JSON.parse(JSON.stringify(setup.ovs||OVD))};
   hist=[];ui.tab='score';ui.sheet=null;save();render();
 }
 
@@ -433,7 +444,8 @@ function ball(ev){
     if(legal&&I.balls%6===0){
       var t2=I.st;I.st=I.ns;I.ns=t2;
       if(B.cr===0)B.m++;
-      B.cr=0;I.last=I.bowler;I.bowler=null;
+      B.cr0=B.cr;B.cr=0;I.last=I.bowler;I.bowler=null;
+      I.os={o:I.balls/6,r:B.cr0,w:I.ob.filter(function(x){return x.k==='w'}).length,b:pl(I.bowl,I.last)};
       feed(I,'info','Over '+(I.balls/6)+' khatam — '+I.runs+'/'+I.wkts);
       I.pend.push('bowler');
     }
@@ -465,7 +477,7 @@ function confirmOpen(){
     feed(I,'in','Batting shuru: '+bn(c.st)+' aur '+bn(c.ns)+' — Bowling: '+pl(I.bowl,c.bw))});
 }
 function startInn2(){mut(function(){var a=S.inn[0],n=newInn(a.bowl);n.target=a.runs+1;S.inn.push(n);S.cur=1;S.brk=false;ui.tab='score'})}
-function undo(){if(!hist.length)return;var ox=S.ovx;S=JSON.parse(hist.pop());if(ox)S.ovx=ox;else delete S.ovx;save();render()}
+function undo(){if(!hist.length)return;var ox=S.ovx,os=S.ovs;S=JSON.parse(hist.pop());if(ox)S.ovx=ox;else delete S.ovx;if(os)S.ovs=os;save();render()}
 
 function summary(){
   var L=['🏏 '+S.teams[0].name+' vs '+S.teams[1].name+' ('+S.cfg.overs+' over)'];
@@ -495,6 +507,10 @@ function ovPanel(){
     var ex=I.ex.wd+I.ex.nb+I.ex.b+I.ex.lb;
     return '<div class="ovp"><h4><span>'+esc(bt.name)+' scoreboard</span><span>'+I.runs+'/'+I.wkts+' · '+ov(I.balls)+' ov · Extras '+ex+'</span></h4>'+rows+'</div>';
   }
+  if(x.k==='xi'){
+    var col=function(t){return '<div><h5>'+esc(S.teams[t].name)+'</h5>'+S.teams[t].players.map(function(n,i){return '<div class="ln"><span>'+(i+1)+'. '+esc(n)+'</span></div>'}).join('')+'</div>'};
+    return '<div class="ovp"><h4><span>Playing 11</span></h4><div class="xi">'+col(I.bat)+col(I.bowl)+'</div></div>';
+  }
   if(x.k==='recap'){
     var fs=I.feed.filter(function(f){return f.k!=='info'||/^OUT/.test(f.x)}).slice(0,8).map(function(f){return '<div class="fx k-'+f.k+'">'+esc(f.x)+'</div>'}).join('');
     return '<div class="ovp"><h4><span>Pichli gendein</span><span>'+esc(bt.name)+' '+I.runs+'/'+I.wkts+'</span></h4>'+(fs||'<div class="fx">Abhi koi gend nahi</div>')+'</div>';
@@ -511,6 +527,7 @@ function viewOverlay(){
   else if(I.target!=null){var need=I.target-I.runs,left=S.cfg.overs*6-I.balls;info='Target <b>&nbsp;'+I.target+'&nbsp;</b> · '+(need>0?'<b>&nbsp;'+need+'&nbsp;</b> run / <b>&nbsp;'+left+'&nbsp;</b> gend':'poora')}
   else info='Run rate <b>&nbsp;'+(I.balls?(I.runs*6/I.balls).toFixed(2):'0.00')+'</b>'+(I.balls>=6?' · Anjam <b>&nbsp;'+Math.round(I.runs*S.cfg.overs*6/I.balls)+'</b>':'');
   var fh=I.fh&&!I.done?'<span class="ofh">FREE HIT</span>':'';
+  if(ui.ovi&&Date.now()<ui.ovi.until)info='<b>'+esc(ui.ovi.txt)+'</b>';
   var f=ui.ovf,mid;
   if(f&&Date.now()<f.until){
     var T={four:['CHAUKKA! 4','4 run'],six:['CHAKKA! 6','6 run'],w:['OUT!',''],win:['MATCH KHATAM',''],fifty:['FIFTY!',''],team:['TEAM','']}[f.k];
@@ -518,9 +535,11 @@ function viewOverlay(){
   }else{
     mid='<div class="ov-m"><div class="ov-row">'+one(I.st,1)+one(I.ns,0)+'</div><div class="ov-row dim">'+(bw?'<span>'+esc(pl(I.bowl,I.bowler))+' <b>'+ov(bw.b)+'-'+bw.m+'-'+bw.r+'-'+bw.w+'</b></span>':'')+'<span class="obls">'+balls+'</span>'+fh+'</div></div>';
   }
-  var pn=ovPanel();
-  if(pn)return '<div class="ovwrap">'+pn+'</div>';
-  return '<div class="ovwrap">'+'<div class="ovbar"><div class="ov-l"><span class="ov-t">'+esc(bt.name)+'</span><span class="ov-s"><b>'+I.runs+'</b>/'+I.wkts+'</span><span class="ov-o">'+ov(I.balls)+' / '+S.cfg.overs+' ov</span></div>'+mid+'<div class="ov-r">'+info+'</div></div></div>';
+  var O=S.ovs||OVD,pn=ovPanel(),ocls=(O.pos==='t'&&!ui.strip)?' top':'',kk=ui.strip?1:(+O.sz||1);
+  if(pn)return '<div class="ovwrap'+ocls+'" style="--k:'+kk+'">'+pn+'</div>';
+  if(O.hide&&!ui.strip)return '';
+  var tag=(O.title&&!ui.strip)?'<div class="ov-tag">'+esc(O.title)+'</div>':'',tk=(O.tick&&!ui.strip)?'<div class="ov-tick"><span style="animation-duration:'+Math.max(12,Math.round(O.tick.length*0.28))+'s">'+esc(O.tick)+'</span></div>':'';
+  return '<div class="ovwrap'+ocls+'" style="--k:'+kk+'">'+tag+'<div class="ovbar"><div class="ov-l"><span class="ov-t">'+esc(bt.name)+'</span><span class="ov-s"><b>'+I.runs+'</b>/'+I.wkts+'</span><span class="ov-o">'+ov(I.balls)+' / '+S.cfg.overs+' ov</span></div>'+mid+'<div class="ov-r">'+info+'</div></div>'+tk+'</div>';
 }
 function viewWait(){
   return '<header><h1>Gao Cricket Live</h1></header><div class="card"><h2>'+(ui.vErr?'Live score nahi mil raha':'Match abhi shuru nahi hua')+'</h2><p class="muted">'+(ui.vErr?'Internet check karo aur link dobara kholo.':'Jaise hi scorer match shuru karega, score yahan apne aap aa jayega. Page refresh karne ki zaroorat nahi.')+'</p></div>';
@@ -587,7 +606,7 @@ function viewScore(){
      '<button class="key ku" data-a="undo"'+(hist.length?'':' disabled')+'><b>↶ Undo</b><i>pichla ball</i></button>'+
      '<button class="key ku" data-a="swap"'+d+'><b>⇄ Strike</b><i>badlo</i></button></div>';
 
-  if(!V)h+='<div class="card tvc"><h3>📺 TV screen pe dikhao</h3><p class="muted" style="font-size:14px">Ye button dabane se live video ki patti pe dikhega (overlay link wali layer pe).</p><div class="row2"><button class="btn pri" data-a="tv" data-k="card">📊 Scoreboard</button><button class="btn pri" data-a="tv" data-k="recap">🕐 Pichli gendein</button><button class="btn pri" data-a="tv" data-k="replay">🔁 Replay (aakhri 4/6/out)</button><button class="btn" data-a="tv" data-k="off">✖ Hata do</button></div></div>';
+  if(!V){var O2=S.ovs||OVD;h+='<div class="card tvc"><h3>📺 TV screen pe dikhao</h3><div class="tvst" id="tvst">'+tvStatus()+'</div><div class="row2"><button class="btn pri" data-a="tv" data-k="card">📊 Scoreboard</button><button class="btn pri" data-a="tv" data-k="xi">👥 Playing 11</button><button class="btn pri" data-a="tv" data-k="recap">🕐 Pichli gendein</button><button class="btn pri" data-a="tv" data-k="replay">🔁 Replay (4/6/out)</button><button class="btn" data-a="tvs" data-f="hide" data-v="'+(O2.hide?0:1)+'">'+(O2.hide?'👁 Patti dikhao':'🙈 Patti chhupao')+'</button><button class="btn" data-a="tv" data-k="off">✖ Panel hata do</button></div></div>'}
 
   // out list
   var outs=I.order.filter(function(i){return I.bt[i].out});
@@ -655,6 +674,17 @@ function viewMenu(){
    '<div class="card"><h3>Phone streaming app ke liye (sirf patti)</h3><p class="muted">Agar Streamlabs main patti ke peeche safed dabba aaye to ye link use karo. Patti poori layer bhar degi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#strip='+live.code)+'</textarea><button class="btn pri" data-a="copystrip">Strip link copy karo</button></div>'+
    '<div class="card"><h3>Dusre phone se score likhna ho</h3><p class="muted">Live wale phone pe score nahi likh sakte. Ye link dusre phone pe kholo. Us phone se score likhne par isi code ki patti badlegi. Us phone pe naya match shuru karna hoga.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#scorer='+live.code)+'</textarea><button class="btn pri" data-a="copyscorer">Scorer link copy karo</button></div>'+
    '<div class="card"><h3>WhatsApp pe bhejo</h3><button class="btn pri" data-a="copy">Score copy karo</button>'+(ui.sum?'<textarea id="sumbox" readonly style="min-height:180px">'+esc(ui.sum)+'</textarea>':'')+'</div>';
+  var O3=S.ovs||OVD,ch=function(f,v,t){return '<button class="chip'+(String(O3[f])===String(v)?' on':'')+'" data-a="tvs" data-f="'+f+'" data-v="'+v+'">'+t+'</button>'};
+  h+='<div class="card tvc"><h3>📺 TV patti settings</h3><p class="muted">Ye badlav live video ki patti pe foran lagte hain.</p>'+
+   '<div class="field"><label for="ovt">Match ka title (patti ke upar)</label><input type="text" id="ovt" maxlength="40" placeholder="Gao Premier League — Final" value="'+esc(O3.title||'')+'"></div>'+
+   '<div class="field"><label for="ovk">Neeche chalti line (ticker)</label><input type="text" id="ovk" maxlength="90" placeholder="Sponsor ya message likho" value="'+esc(O3.tick||'')+'"></div>'+
+   '<button class="btn pri" data-a="ovtxt">Text save karo</button>'+
+   '<h3 style="margin-top:14px">Patti kahan</h3><div class="chips">'+ch('pos','b','Neeche')+ch('pos','t','Upar')+'</div>'+
+   '<h3 style="margin-top:10px">Patti ka size</h3><div class="chips">'+ch('sz','0.85','Chota')+ch('sz','1','Medium')+ch('sz','1.2','Bara')+'</div>'+
+   '<h3 style="margin-top:10px">Patti</h3><div class="chips">'+ch('hide','0','Dikhao')+ch('hide','1','Chhupao')+'</div></div>';
+  var HI=[];try{HI=JSON.parse(localStorage.getItem('gao-hist')||'[]')}catch(e){}
+  if(HI.length)h+='<div class="card"><h3>Pichle matches</h3>'+HI.map(function(x,i){return '<div class="hrow"><div><b>'+esc(x.n)+'</b><div class="muted" style="font-size:13px">'+esc(x.r)+'</div></div><button class="btn sm" data-a="hcopy" data-i="'+i+'">Copy</button></div>'}).join('')+'</div>';
+  h+='<p class="muted" style="text-align:center;font-size:12px">Version '+VER+'</p>';
   if(!ended)h+='<div class="card"><h3>Innings</h3>'+(ui.confirm==='end'?'<p>Pakka innings abhi khatam karni hai?</p><div class="two"><button class="btn red" data-a="endyes">Haan, khatam</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="endask">Innings abhi khatam karo (time khatam / declare)</button>')+'</div>';
   h+='<div class="card"><h3>Naya match</h3>'+(ui.confirm==='new'?'<p>Purana match hamesha ke liye hat jayega. Pakka?</p><div class="two"><button class="btn red" data-a="newyes">Haan, naya match</button><button class="btn" data-a="cfx">Nahi</button></div>':'<button class="btn" data-a="newask">Naya match shuru karo</button>')+'</div>';
   return h;
@@ -742,7 +772,35 @@ function sheetHtml(){
   return '';
 }
 
+function archive(){
+  if(!S||!S.over||S.saved||ui.viewer||ui.overlay)return;
+  S.saved=true;
+  try{var h=JSON.parse(localStorage.getItem('gao-hist')||'[]'),nm=S.teams[0].name+' vs '+S.teams[1].name,now=Date.now();
+    h=h.filter(function(x){return !(x.n===nm&&now-x.t<6*3600*1000)});
+    h.unshift({t:now,n:nm,r:S.result,s:summary()});localStorage.setItem('gao-hist',JSON.stringify(h.slice(0,15)))}catch(e){}
+  save();
+}
+function tvStatus(){
+  var h=live.hb;if(!h)return '📺 TV patti abhi nahi mili. Overlay phone pe link khula ho to 3 minute tak ruko.';
+  var ago=Math.max(0,Math.round((Date.now()-h.t)/1000)),ok=ago<420,mm=ago>=90?Math.round(ago/60)+' min pehle':ago+' sec pehle';
+  return (ok?'✅ TV patti connected':'⚠️ TV patti band lagti hai')+' ('+h.v+(h.m==='strip'?', strip layer — scoreboard nahi dikhega':'')+') · '+mm;
+}
+function startHbListen(){
+  if(ui.viewer||ui.overlay||startHbListen.on)return;startHbListen.on=true;
+  try{var es=new EventSource(topicUrl(live.code)+'-hb/sse?since=15m');
+    es.onmessage=function(ev){var d;try{d=JSON.parse(ev.data)}catch(e){return}
+      if(d.event!=='message')return;var m=String(d.message||'').match(/^hb:(\w+):(\w+)/);if(!m)return;
+      live.hb={t:(d.time||Date.now()/1000)*1000,v:m[1],m:m[2]};var e2=$('tvst');if(e2)e2.innerHTML=tvStatus()}}catch(e){}
+  setInterval(function(){var e3=$('tvst');if(e3)e3.innerHTML=tvStatus()},15000);
+}
+function startHbSend(code){
+  var send=function(){try{fetch(topicUrl(code)+'-hb',{method:'POST',body:'hb:'+VER+':'+(ui.strip?'strip':'overlay')})}catch(e){}};
+  send();setInterval(send,180000);
+}
+function wl(){if(ui.viewer||ui.overlay)return;try{if(navigator.wakeLock&&!wl.l)navigator.wakeLock.request('screen').then(function(l){wl.l=l;l.addEventListener('release',function(){wl.l=null})}).catch(function(){})}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')wl()});
 function render(){
+  archive();
   var app=$('app');
   if(ui.overlay){document.body.classList.add('ov');if(ui.strip)document.body.classList.add('strip');app.innerHTML=(S&&!ui.boot)?viewOverlay():'';$('nav').innerHTML='';$('sheet').innerHTML='';if(S)checkFlash();fitOv();return}
   if(ui.boot){app.innerHTML='<p class="muted">Load ho raha hai…</p>';$('nav').innerHTML='';$('sheet').innerHTML='';return}
@@ -780,7 +838,7 @@ function flash(k,txt,ms,title){
   clearTimeout(flash.t);flash.t=setTimeout(function(){el.innerHTML=''},ms||(k==='six'?2500:k==='fifty'?3500:1100));
 }
 function ovShow(k){
-  var ms={card:20000,recap:15000}[k];
+  var ms={card:20000,recap:15000,xi:20000}[k]||15000;
   ui.ovp={k:k,until:Date.now()+ms};
   clearTimeout(ovShow.t);ovShow.t=setTimeout(function(){ui.ovp=null;if(S)render()},ms+60);
 }
@@ -809,8 +867,17 @@ function checkFlash(){
       }
     }
   }
-  fprev={cur:S.cur,n:n,over:S.over,init:true,bm:miles(I),tm:I.runs};
+  var info=null;
+  if(fprev.init&&!ui.replay){
+    var g=same&&n>fprev.n?I.feed[0]:null,mm;
+    if(g&&g.k==='in'&&(mm=g.x.match(/^Naya batsman aaya: (.+?) \(batting #(\d+)\)/)))info=['NAYA BATSMAN: '+mm[1]+' (#'+mm[2]+')',7000];
+    else if(g&&g.k==='in'&&(mm=g.x.match(/^Bowling: (.+?) ne over shuru kiya/)))info=['NAYA BOWLER: '+mm[1],7000];
+    if(same&&I.os&&I.os.o!==fprev.os)info=['OVER '+I.os.o+': '+I.os.r+' run'+(I.os.w?', '+I.os.w+' wicket':'')+' ('+I.os.b+')',9000];
+    if(!same&&S.cur===1&&fprev.cur===0&&I.target!=null)info=['TARGET '+I.target+' — '+S.teams[I.bat].name+' ko '+I.target+' run chahiye',14000];
+  }
+  fprev={cur:S.cur,n:n,over:S.over,init:true,bm:miles(I),tm:I.runs,os:I.os?I.os.o:0};
   var x=S.ovx,redo=false;
+  if(info&&ui.overlay){ui.ovi={txt:info[0],until:Date.now()+info[1]};clearTimeout(checkFlash.ti);checkFlash.ti=setTimeout(function(){ui.ovi=null;if(S)render()},info[1]+60);redo=true}
   if(ui.overlay&&x&&x.id!==ui.ovid){
     ui.ovid=x.id;
     if(!ui.replay){
@@ -873,6 +940,9 @@ function act(a,d){
     case 'copystrip':{var u3=baseUrl()+'#strip='+live.code;try{navigator.clipboard.writeText(u3).then(function(){toast('Strip link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copyscorer':{var u4=baseUrl()+'#scorer='+live.code;try{navigator.clipboard.writeText(u4).then(function(){toast('Scorer link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'tv':{if(!S||ui.viewer)break;S.ovx={k:d.k,id:Date.now()};save();pushLive(true);toast(d.k==='off'?'TV se hata diya':'TV pe bhej diya');break}
+    case 'tvs':{if(!S||ui.viewer)break;var v2=d.f==='pos'?d.v:+d.v;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));S.ovs[d.f]=v2;setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);render();toast('TV patti badal di');break}
+    case 'ovtxt':{if(!S||ui.viewer)break;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));S.ovs.title=$('ovt').value.trim().slice(0,40);S.ovs.tick=$('ovk').value.trim().slice(0,90);setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);toast('Text save ho gaya');break}
+    case 'hcopy':{var HH=[];try{HH=JSON.parse(localStorage.getItem('gao-hist')||'[]')}catch(e){}var it=HH[+d.i];if(!it)break;ui.sum=it.s;render();try{navigator.clipboard.writeText(it.s).then(function(){toast('Copy ho gaya — WhatsApp main paste karo')},function(){toast('Neeche likhe score ko select karke copy karo')})}catch(e){toast('Neeche likhe score ko select karke copy karo')}break}
     case 'endask':ui.confirm='end';render();break;
     case 'endyes':ui.confirm=null;ui.tab='score';mut(function(){var J=cur();J.done=true;J.pend=[];J.why='Innings manual khatam';endInnings()});break;
     case 'newask':ui.confirm='new';render();break;
@@ -881,7 +951,7 @@ function act(a,d){
   }
 }
 
-document.addEventListener('click',function(e){var el=e.target.closest('[data-a]');if(el)act(el.dataset.a,el.dataset)});
+document.addEventListener('click',function(e){var el=e.target.closest('[data-a]');if(el){try{if(navigator.vibrate&&!ui.viewer&&/^(run|ex|exr|wconf|undo|swap)$/.test(el.dataset.a))navigator.vibrate(el.dataset.a==='wconf'?45:14)}catch(x){}wl();act(el.dataset.a,el.dataset)}});
 document.addEventListener('input',function(e){
   var id=e.target.id;
   if(S)return;
@@ -903,7 +973,7 @@ if(sm){try{localStorage.setItem('gao-code',sm[1].toLowerCase())}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
 var wm=location.hash.match(/^#(live|overlay|strip)=([a-z0-9]+)/i);
-if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true;if(m1==='strip')ui.strip=true}startViewer(wm[2])}else{render();if(S)pushLive(true)}
+if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true;if(m1==='strip')ui.strip=true}startViewer(wm[2])}else{render();if(S)pushLive(true);startHbListen();wl()}
 })();
 </script>
 </body></html>
