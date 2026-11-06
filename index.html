@@ -206,6 +206,45 @@ textarea{min-height:200px;line-height:1.5;resize:vertical}
 body.ov{background:transparent!important;padding:0!important}
 .ov .app{max-width:none;gap:0}
 body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:none!important}
+/* ===== Pre-match intro screen ===== */
+.ovin{position:fixed;inset:0;font-family:var(--f-body);color:#fff;font-size:3vmin;overflow:hidden;background:
+ radial-gradient(120% 60% at 50% -10%,#3A2A8C 0%,rgba(58,42,140,0) 60%),
+ radial-gradient(70% 60% at 0% 40%,rgba(255,150,40,.30),rgba(255,150,40,0) 70%),
+ radial-gradient(70% 60% at 100% 40%,rgba(24,235,150,.28),rgba(24,235,150,0) 70%),
+ linear-gradient(180deg,#0A0F24 0%,#070B18 60%,#04110A 100%)}
+.ovin .sl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2vmin;padding:4vmin 4vmin;text-align:center;opacity:0;transform:scale(.97);transition:opacity .7s,transform .7s;pointer-events:none}
+.ovin .sl.on{opacity:1;transform:none}
+.ovin .pl1{display:inline-flex;gap:1.2em;align-items:center;padding:.5em 1.6em;border-radius:60px;background:linear-gradient(90deg,#FFC21A,#FF8A00);color:#1A0F00;font-weight:900;font-size:1em;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 .5em 1.6em rgba(255,160,0,.45)}
+.ovin .pl1 b{width:.6em;height:.6em;border-radius:50%;background:#C21E12;box-shadow:0 0 0 .25em rgba(194,30,18,.25);animation:ovblink 1s infinite}
+.ovin .ev{font-family:var(--f-disp);font-weight:800;font-size:1.5em;letter-spacing:.22em;text-transform:uppercase;color:#BFD0FF}
+.ovin .tm{display:flex;align-items:center;justify-content:center;gap:1em;flex-wrap:wrap}
+.ovin .tn{font-family:var(--f-disp);font-weight:900;font-size:5.4em;line-height:1;text-transform:uppercase;font-style:italic;letter-spacing:-.01em;text-shadow:0 .08em 0 rgba(0,0,0,.35)}
+.ovin .tn.a{background:linear-gradient(180deg,#FFD08A,#FF5B2E);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ovin .tn.b{background:linear-gradient(180deg,#B8FFE0,#18EB96);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ovin .vsb{width:2.9em;height:2.9em;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-weight:900;font-style:italic;font-size:1.6em;background:radial-gradient(circle at 30% 25%,#FF5B4D,#B3170C);border:.14em solid #fff;box-shadow:0 0 0 .3em rgba(255,76,61,.3),0 0 1.8em rgba(255,76,61,.8)}
+.ovin .toss{font-weight:800;font-size:1.25em;letter-spacing:.06em;color:#D6DEFF;text-transform:uppercase}
+.ovin .toss b{color:#FFE45C}
+.ovin .cd{margin-top:.6vmin;padding:1vmin 3vmin 1.4vmin;border-radius:2.4vmin;background:rgba(255,255,255,.07);box-shadow:0 0 0 .3vmin rgba(255,196,0,.9),0 0 3vmin rgba(255,196,0,.25)}
+.ovin .cd small{display:block;font-weight:800;font-size:1.1em;letter-spacing:.3em;text-indent:.3em;color:#FFC21A;text-transform:uppercase}
+.ovin .cd .dg{font-family:var(--f-disp);font-weight:900;font-size:8.4em;line-height:1.02;font-variant-numeric:tabular-nums;letter-spacing:.02em;background:linear-gradient(180deg,#fff,#FFE45C 55%,#FF9A1F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ovin .cd .dg.go{animation:ovblink 1s infinite;font-size:5.6em}
+.ovin .vn{display:inline-flex;gap:1em;align-items:center;padding:.7em 2em;border-radius:1em;background:linear-gradient(90deg,#0B1230,#18235A,#0B1230);box-shadow:0 0 0 .2em #FFC21A,0 .8em 2em rgba(0,0,0,.6);font-weight:900;font-size:1.25em;letter-spacing:.1em;text-transform:uppercase}
+.ovin .vn em{font-style:normal;color:#FF4C3D}
+.ovin .xh{font-family:var(--f-disp);font-weight:900;font-size:3.6em;letter-spacing:.04em;text-transform:uppercase;font-style:italic;background:linear-gradient(180deg,#fff,#dfe6ff 45%,#8d98c4 52%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ovin .xh span{background:linear-gradient(180deg,#FFF3B0,#FFC21A 50%,#FF8A00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ovin .xc{display:grid;grid-template-columns:1fr 1fr;gap:2.4vmin;width:100%;max-width:150vmin}
+.ovin .xt{border-radius:2vmin;padding:1.4vmin 1.6vmin;background:rgba(8,12,30,.85)}
+.ovin .xt.a{box-shadow:0 0 0 .3vmin #FF6A2E,0 0 2.4vmin rgba(255,106,46,.4)}
+.ovin .xt.b{box-shadow:0 0 0 .3vmin #18EB96,0 0 2.4vmin rgba(24,235,150,.35)}
+.ovin .xt h6{margin:0 0 .8vmin;padding:.6vmin 1vmin;border-radius:1.2vmin;font-family:var(--f-disp);font-weight:900;font-size:1.5em;letter-spacing:.06em;text-transform:uppercase;color:#0B0B0B}
+.ovin .xt.a h6{background:linear-gradient(90deg,#FF5B2E,#FFB020)}
+.ovin .xt.b h6{background:linear-gradient(90deg,#18EB96,#A8FF6A)}
+.ovin .xp{display:flex;align-items:center;gap:1vmin;padding:.35vmin .6vmin;font-weight:800;font-size:1.02em;text-transform:uppercase;text-align:left;white-space:nowrap}
+.ovin .xp i{font-style:normal;min-width:1.8em;height:1.8em;border-radius:.5em;display:inline-flex;align-items:center;justify-content:center;font-family:var(--f-disp);font-size:.85em;color:#0B0B0B;font-weight:900}
+.ovin .xt.a .xp i{background:linear-gradient(135deg,#FF7A3D,#FFC21A)}.ovin .xt.b .xp i{background:linear-gradient(135deg,#18EB96,#B6FF6B)}
+@media (orientation:landscape){.ovin .sl{gap:1.6vmin;padding:3vmin 4vmin}.ovin .tn{font-size:4.3em}.ovin .cd .dg{font-size:6.6em}.ovin .vsb{font-size:1.3em}.ovin .vn{font-size:1.05em;padding:.5em 1.6em}}
+@media (orientation:portrait){.ovin .tn{font-size:6.6em}.ovin .tm{flex-direction:column;gap:.3em}.ovin .xc{grid-template-columns:1fr;max-width:none}.ovin .xp{font-size:.9em;padding:.1vmin .6vmin}.ovin .xt h6{font-size:1.3em}.ovin .cd .dg{font-size:7.4em}}
+
 /* ===== International-style broadcast bar ===== */
 .ovst{position:fixed;left:50%;bottom:3vh;transform-origin:50% 100%;font-family:var(--f-body);font-size:26px;color:#fff;display:flex;flex-direction:column;gap:8px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))}
 .ovst.top{top:3vh;bottom:auto;transform-origin:50% 0}
@@ -309,7 +348,7 @@ body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:
 <script>
 (function(){
 'use strict';
-var KEY='gao-cricket-v1',VER='v8',OVD={hide:0,pos:'b',sz:1,cmp:0,title:'',tick:''};
+var KEY='gao-cricket-v1',VER='v10',OVD={hide:0,pos:'b',sz:1,cmp:0,title:'',tick:'',venue:'Jati Cricket Stadium',intro:{on:0,t:0}};
 var S=null, hist=[];
 var ui={tab:'score',sheet:null,sv:0,op:{st:null,ns:null,bw:null},w:{k:'bowled',who:'st',fl:null,ball:'n',r:0},ex:{k:null,bye:false},ren:null,confirm:null,sum:'',err:''};
 var setup={n:['Team A','Team B'],t:['',''],overs:6,wide:1,nb:1,fh:true,maxb:0,first:null,ovs:null};
@@ -412,7 +451,7 @@ function startMatch(){
   ui.err='';
   S={cfg:{overs:setup.overs,wide:setup.wide,nb:setup.nb,fh:setup.fh,maxb:setup.maxb},
      teams:[{name:setup.n[0].trim()||'Team A',players:names[0]},{name:setup.n[1].trim()||'Team B',players:names[1]}],
-     inn:[newInn(setup.first)],cur:0,brk:false,over:false,result:'',ovs:JSON.parse(JSON.stringify(setup.ovs||OVD))};
+     inn:[newInn(setup.first)],cur:0,brk:false,over:false,result:'',ovs:(function(){var o=JSON.parse(JSON.stringify(setup.ovs||OVD));o.intro={on:0,t:0};return o})()};
   hist=[];ui.tab='score';ui.sheet=null;save();render();
 }
 
@@ -544,6 +583,31 @@ function ovPanel(){
   }
   return '';
 }
+
+function introLabel(){var n=S.cfg.overs;return n===20?'T20':n===10?'T10':n+' OVER'}
+function viewIntro(O){
+  var A=S.teams[0],B=S.teams[1],bat=S.teams[S.inn[0].bat],t=+((O.intro||{}).t)||0;
+  var day=new Date().toLocaleDateString('en-US',{weekday:'long'}).toUpperCase();
+  var list=function(T,c){return '<div class="xt '+c+'"><h6>'+esc(T.name)+'</h6>'+T.players.map(function(n,i){return '<div class="xp"><i>'+(i+1)+'</i>'+esc(n)+'</div>'}).join('')+'</div>'};
+  var venue=O.venue!=null?O.venue:'Jati Cricket Stadium';
+  var cd=t?'<div class="cd"><small>Match shuru hone mein</small><div class="dg" id="ovcd" data-t="'+t+'">--:--</div></div>':'<div class="cd"><small>Match jald shuru hoga</small><div class="dg go" style="font-size:4em">• • •</div></div>';
+  ui.introT=0;
+  return '<div class="ovin"><div class="sl on" id="isl0"><div class="pl1"><b></b>'+day+' · '+introLabel()+' MATCH</div>'+(O.title?'<div class="ev">'+esc(O.title)+'</div>':'')+
+    '<div class="tm"><div class="tn a">'+esc(A.name)+'</div><div class="vsb">VS</div><div class="tn b">'+esc(B.name)+'</div></div>'+
+    '<div class="toss">Toss: <b>'+esc(bat.name)+'</b> pehle batting karegi</div>'+cd+
+    '<div class="vn">'+esc(venue)+' <span style="opacity:.5">|</span> <em>Live Stream</em></div></div>'+
+    '<div class="sl" id="isl1"><div class="xh">Playing <span>XI</span></div><div class="xc">'+list(A,'a')+list(B,'b')+'</div></div></div>';
+}
+setInterval(function(){
+  var e=$('ovcd');
+  if(e){var left=Math.round((+e.dataset.t-Date.now())/1000);
+    if(left<=0){e.className='dg go';e.textContent='MATCH SHURU!'}
+    else{var m=Math.floor(left/60),s=left%60;e.className='dg';e.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s}}
+},500);
+setInterval(function(){
+  var a=$('isl0'),b=$('isl1');if(!a||!b)return;
+  ui.introT=(ui.introT||0)+1;if(ui.introT%2){a.className='sl';b.className='sl on'}else{a.className='sl on';b.className='sl'}
+},9000);
 function vp(){
   var w=Math.min(window.innerWidth||9999,document.documentElement.clientWidth||9999),
       h=Math.min(window.innerHeight||9999,document.documentElement.clientHeight||9999,(window.visualViewport&&window.visualViewport.height)||9999);
@@ -567,6 +631,7 @@ function ovItems(I){
 function sparks(n){var h='';for(var i=0;i<n;i++)h+='<s style="--a:'+Math.round(360/n*i)+'deg;--d:'+(90+(i%3)*45)+'px;animation-delay:'+((i%4)*0.09).toFixed(2)+'s"></s>';return h}
 function viewOverlay(){
   var I=cur(),bt=S.teams[I.bat],O=S.ovs||OVD,pn=ovPanel(),V=vp();
+  if(ui.introOnly)return viewIntro(O);
   var nw=V.w/V.h<0.9,W=nw?560:1000;
   var cls='ovst'+(O.pos==='t'?' top':'')+(O.cmp?' cmp':'')+(nw?' nw':'')+(ui.ovshown?'':' intro');
   ui.ovshown=true;
@@ -663,7 +728,7 @@ function viewScore(){
      '<button class="key ku" data-a="undo"'+(hist.length?'':' disabled')+'><b>↶ Undo</b><i>pichla ball</i></button>'+
      '<button class="key ku" data-a="swap"'+d+'><b>⇄ Strike</b><i>badlo</i></button></div>';
 
-  if(!V){var O2=S.ovs||OVD;h+='<div class="card tvc"><h3>📺 TV screen pe dikhao</h3><div class="tvst" id="tvst">'+tvStatus()+'</div><div class="row2"><button class="btn pri" data-a="tv" data-k="card">📊 Scoreboard</button><button class="btn pri" data-a="tv" data-k="xi">👥 Playing 11</button><button class="btn pri" data-a="tv" data-k="recap">🕐 Pichli gendein</button><button class="btn pri" data-a="tv" data-k="replay">🔁 Replay (4/6/out)</button><button class="btn" data-a="tvs" data-f="hide" data-v="'+(O2.hide?0:1)+'">'+(O2.hide?'👁 Patti dikhao':'🙈 Patti chhupao')+'</button><button class="btn" data-a="tv" data-k="off">✖ Panel hata do</button></div></div>'}
+  if(!V){var O2=S.ovs||OVD;h+='<div class="card tvc"><h3>📺 TV screen pe dikhao</h3><div class="tvst" id="tvst">'+tvStatus()+'</div><div class="row2"><button class="btn pri" data-a="tv" data-k="card">📊 Scoreboard</button><button class="btn pri" data-a="tv" data-k="xi">👥 Playing 11</button><button class="btn pri" data-a="tv" data-k="recap">🕐 Pichli gendein</button><button class="btn pri" data-a="tv" data-k="replay">🔁 Replay (4/6/out)</button><button class="btn" data-a="tvs" data-f="hide" data-v="'+(O2.hide?0:1)+'">'+(O2.hide?'👁 Patti dikhao':'🙈 Patti chhupao')+'</button><button class="btn" data-a="tv" data-k="off">✖ Panel hata do</button><button class="btn pri" data-a="intro" data-m="10">⏱ Countdown 10 min</button><button class="btn" data-a="intro" data-m="off">✖ Countdown band</button></div></div>'}
 
   // out list
   var outs=I.order.filter(function(i){return I.bt[i].out});
@@ -734,11 +799,17 @@ function viewMenu(){
   h+='<div class="card tvc"><h3>📺 TV patti settings</h3><p class="muted">Ye badlav live video ki patti pe foran lagte hain.</p>'+
    '<div class="field"><label for="ovt">Match ka title (patti ke upar)</label><input type="text" id="ovt" maxlength="40" placeholder="Gao Premier League — Final" value="'+esc(O3.title||'')+'"></div>'+
    '<div class="field"><label for="ovk">Neeche chalti line (ticker)</label><input type="text" id="ovk" maxlength="90" placeholder="Sponsor ya message likho" value="'+esc(O3.tick||'')+'"></div>'+
+   '<div class="field"><label for="ovv">Jagah (venue)</label><input type="text" id="ovv" maxlength="40" placeholder="Jati Cricket Stadium" value="'+esc(O3.venue!=null?O3.venue:'Jati Cricket Stadium')+'"></div>'+
    '<button class="btn pri" data-a="ovtxt">Text save karo</button>'+
    '<h3 style="margin-top:14px">Patti kahan</h3><div class="chips">'+ch('pos','b','Neeche')+ch('pos','t','Upar')+'</div>'+
    '<h3 style="margin-top:10px">Patti ka size (score kat raha ho to chhota karo)</h3><div class="chips">'+ch('sz','0.5','Bahut chhota')+ch('sz','0.65','Chhota')+ch('sz','0.8','Thora chhota')+ch('sz','1','Medium')+ch('sz','1.2','Bara')+'</div>'+
    '<h3 style="margin-top:10px">Compact patti (kam lines)</h3><div class="chips">'+ch('cmp','0','Poori')+ch('cmp','1','Compact')+'</div>'+
    '<h3 style="margin-top:10px">Patti</h3><div class="chips">'+ch('hide','0','Dikhao')+ch('hide','1','Chhupao')+'</div></div>';
+  var IN=(S.ovs&&S.ovs.intro)||{on:0,t:0},ileft=IN.t?Math.round((IN.t-Date.now())/60000):0;
+  h+='<div class="card tvc"><h3>🎬 Match se pehle — poori screen</h3><p class="muted">Streamlabs main ek alag scene banao (Match se pehle) aur usme ye link ki layer poori screen pe lagao. Us screen pe dono teams, toss, Playing 11 aur countdown dikhta hai. Match shuru hote hi scene badal ke camera + patti wala scene chalao.</p>'+
+   '<div class="linkbox" style="word-break:break-all;font-size:13px;margin:8px 0;padding:8px;border-radius:10px;background:rgba(255,255,255,.06)">'+esc(baseUrl()+'#intro='+(live.code||''))+'</div><button class="btn pri" data-a="copyintro">📋 Intro link copy karo</button>'+
+   (IN.t?'<div class="tvst ok">⏱ Countdown chal raha hai'+(ileft>0?' (~'+ileft+' min baaki)':' (khatam)')+'</div>':'')+
+   '<h3 style="margin-top:14px">Countdown set karo</h3><div class="row2"><button class="btn pri" data-a="intro" data-m="5">⏱ 5 min</button><button class="btn pri" data-a="intro" data-m="10">⏱ 10 min</button><button class="btn pri" data-a="intro" data-m="15">⏱ 15 min</button><button class="btn pri" data-a="intro" data-m="30">⏱ 30 min</button><button class="btn" data-a="intro" data-m="0">Bina countdown</button><button class="btn" data-a="intro" data-m="off">✖ Countdown band</button></div></div>';
   var HI=[];try{HI=JSON.parse(localStorage.getItem('gao-hist')||'[]')}catch(e){}
   if(HI.length)h+='<div class="card"><h3>Pichle matches</h3>'+HI.map(function(x,i){return '<div class="hrow"><div><b>'+esc(x.n)+'</b><div class="muted" style="font-size:13px">'+esc(x.r)+'</div></div><button class="btn sm" data-a="hcopy" data-i="'+i+'">Copy</button></div>'}).join('')+'</div>';
   h+='<p class="muted" style="text-align:center;font-size:12px">Version '+VER+'</p>';
@@ -851,7 +922,7 @@ function startHbListen(){
   setInterval(function(){var e3=$('tvst');if(e3)e3.innerHTML=tvStatus()},15000);
 }
 function startHbSend(code){
-  var send=function(){try{fetch(topicUrl(code)+'-hb',{method:'POST',body:'hb:'+VER+':'+(ui.strip?'strip':'overlay')+':'+window.innerWidth+'x'+window.innerHeight})}catch(e){}};
+  var send=function(){try{fetch(topicUrl(code)+'-hb',{method:'POST',body:'hb:'+VER+':'+(ui.introOnly?'intro':ui.strip?'strip':'overlay')+':'+window.innerWidth+'x'+window.innerHeight})}catch(e){}};
   send();setInterval(send,180000);
 }
 function wl(){if(ui.viewer||ui.overlay)return;try{if(navigator.wakeLock&&!wl.l)navigator.wakeLock.request('screen').then(function(l){wl.l=l;l.addEventListener('release',function(){wl.l=null})}).catch(function(){})}catch(e){}}
@@ -998,11 +1069,13 @@ function act(a,d){
     case 'copy':{ui.sum=summary();render();var tx=ui.sum;try{navigator.clipboard.writeText(tx).then(function(){toast('Copy ho gaya — WhatsApp main paste karo')},function(){toast('Neeche likhe score ko select karke copy karo')})}catch(e){toast('Neeche likhe score ko select karke copy karo')}break}
     case 'copylink':{var u=baseUrl()+'#live='+live.code;try{navigator.clipboard.writeText(u).then(function(){toast('Link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copyov':{var u2=baseUrl()+'#overlay='+live.code;try{navigator.clipboard.writeText(u2).then(function(){toast('Overlay link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
+    case 'copyintro':{var u4=baseUrl()+'#intro='+live.code;try{navigator.clipboard.writeText(u4).then(function(){toast('Intro link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copystrip':{var u3=baseUrl()+'#strip='+live.code;try{navigator.clipboard.writeText(u3).then(function(){toast('Strip link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'copyscorer':{var u4=baseUrl()+'#scorer='+live.code;try{navigator.clipboard.writeText(u4).then(function(){toast('Scorer link copy ho gaya')},function(){toast('Link ko select karke copy karo')})}catch(e){toast('Link ko select karke copy karo')}break}
     case 'tv':{if(!S||ui.viewer)break;S.ovx={k:d.k,id:Date.now()};save();pushLive(true);toast(d.k==='off'?'TV se hata diya':'TV pe bhej diya');break}
     case 'tvs':{if(!S||ui.viewer)break;var v2=d.f==='pos'?d.v:+d.v;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));S.ovs[d.f]=v2;setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);render();toast('TV patti badal di');break}
-    case 'ovtxt':{if(!S||ui.viewer)break;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));S.ovs.title=$('ovt').value.trim().slice(0,40);S.ovs.tick=$('ovk').value.trim().slice(0,90);setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);toast('Text save ho gaya');break}
+    case 'ovtxt':{if(!S||ui.viewer)break;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));S.ovs.title=$('ovt').value.trim().slice(0,40);S.ovs.tick=$('ovk').value.trim().slice(0,90);S.ovs.venue=$('ovv').value.trim().slice(0,40);setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);toast('Text save ho gaya');break}
+    case 'intro':{if(!S||ui.viewer)break;S.ovs=S.ovs||JSON.parse(JSON.stringify(OVD));var mm2=+d.m||0;S.ovs.intro=d.m==='off'?{on:0,t:0}:{on:1,t:mm2?Date.now()+mm2*60000:0};setup.ovs=JSON.parse(JSON.stringify(S.ovs));save();pushLive(true);render();toast(d.m==='off'?'Countdown band':(+d.m?'Countdown '+d.m+' min set ho gaya':'Bina countdown'));break}
     case 'hcopy':{var HH=[];try{HH=JSON.parse(localStorage.getItem('gao-hist')||'[]')}catch(e){}var it=HH[+d.i];if(!it)break;ui.sum=it.s;render();try{navigator.clipboard.writeText(it.s).then(function(){toast('Copy ho gaya — WhatsApp main paste karo')},function(){toast('Neeche likhe score ko select karke copy karo')})}catch(e){toast('Neeche likhe score ko select karke copy karo')}break}
     case 'endask':ui.confirm='end';render();break;
     case 'endyes':ui.confirm=null;ui.tab='score';mut(function(){var J=cur();J.done=true;J.pend=[];J.why='Innings manual khatam';endInnings()});break;
@@ -1033,8 +1106,8 @@ var sm=location.hash.match(/^#scorer=([a-z0-9]+)/i);
 if(sm){try{localStorage.setItem('gao-code',sm[1].toLowerCase())}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
-var wm=location.hash.match(/^#(live|overlay|strip)=([a-z0-9]+)/i);
-if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true}startViewer(wm[2])}else{render();if(S)pushLive(true);startHbListen();wl()}
+var wm=location.hash.match(/^#(live|overlay|strip|intro)=([a-z0-9]+)/i);
+if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'||m1==='intro'){ui.overlay=true}if(m1==='intro')ui.introOnly=true;startViewer(wm[2])}else{render();if(S)pushLive(true);startHbListen();wl()}
 })();
 </script>
 </body></html>
