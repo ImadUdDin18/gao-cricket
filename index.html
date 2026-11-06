@@ -206,8 +206,72 @@ textarea{min-height:200px;line-height:1.5;resize:vertical}
 body.ov{background:transparent!important;padding:0!important}
 .ov .app{max-width:none;gap:0}
 body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:none!important}
-.ovwrap{position:fixed;left:2vw;right:2vw;bottom:3vh;display:flex;flex-direction:column;gap:.7em;font-size:calc(var(--k,1)*clamp(16px,2.5vw,40px))}
-.ovwrap.top{top:3vh;bottom:auto}
+/* ===== International-style broadcast bar ===== */
+.ovst{position:fixed;left:50%;bottom:3vh;transform-origin:50% 100%;font-family:var(--f-body);font-size:26px;color:#fff;display:flex;flex-direction:column;gap:8px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))}
+.ovst.top{top:3vh;bottom:auto;transform-origin:50% 0}
+.ovst.intro .oc{animation:ocin .7s cubic-bezier(.2,.9,.3,1)}
+@keyframes ocin{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.oc{display:flex;flex-direction:column;border-radius:14px;overflow:hidden;background:#091330;box-shadow:0 0 0 2px #FFC400,0 0 0 4px rgba(255,196,0,.28)}
+.oc-main{display:flex;align-items:stretch;min-height:92px;position:relative;background:linear-gradient(180deg,#17306B 0%,#0A1533 100%)}
+.oc-main:before{content:'';position:absolute;left:0;right:0;top:0;height:46%;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0));pointer-events:none;z-index:3}
+.oc-team{flex:0 0 auto;min-width:190px;max-width:290px;background:linear-gradient(135deg,#12B060 0%,#0A6A38 100%);padding:8px 38px 8px 20px;display:flex;flex-direction:column;justify-content:center;clip-path:polygon(0 0,100% 0,calc(100% - 22px) 100%,0 100%);margin-right:-14px;z-index:2}
+.oc-team b{font-family:var(--f-disp);font-size:1.18em;letter-spacing:.07em;text-transform:uppercase;line-height:1.05;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.oc-team small{opacity:.9;font-size:.55em;letter-spacing:.16em;font-weight:800;margin-top:2px}
+.live{display:inline-flex;align-items:center;gap:6px;background:#E5322B;border-radius:4px;padding:1px 9px;font-size:.46em;font-weight:800;letter-spacing:.14em;align-self:flex-start;margin-bottom:4px}
+.live i{width:8px;height:8px;border-radius:50%;background:#fff;animation:ovblink 1s infinite}
+@keyframes ovblink{50%{opacity:.2}}
+.oc-score{flex:0 0 auto;background:linear-gradient(180deg,#FFE95E 0%,#FFC400 100%);color:#0D0D0D;display:flex;align-items:baseline;gap:12px;padding:6px 40px 6px 36px;clip-path:polygon(22px 0,100% 0,calc(100% - 22px) 100%,0 100%);margin-right:-14px;z-index:1;position:relative}
+.sc{font-family:var(--f-disp);font-size:2.7em;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;display:inline-block}
+.sc em{font-style:normal;opacity:.5;margin:0 3px}
+.sc.pulse{animation:scp .6s ease-out}
+@keyframes scp{0%{transform:scale(1)}35%{transform:scale(1.16)}100%{transform:scale(1)}}
+.ovr{font-weight:800;font-size:.72em;white-space:nowrap}
+.ovr small{font-size:.8em;opacity:.7}
+.oc-mid{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:6px 14px 6px 34px;gap:1px}
+.bt{display:grid;grid-template-columns:18px minmax(0,1fr) auto auto;align-items:baseline;gap:8px;line-height:1.3;white-space:nowrap}
+.bt .mk{color:#FFC400;font-style:normal;font-size:.62em}
+.bt .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.bt b{font-family:var(--f-disp);font-size:1.2em;min-width:1.4em;text-align:right;font-variant-numeric:tabular-nums}
+.bt small{opacity:.75;font-size:.7em;min-width:2.8em}
+.bt.st .nm,.bt.st b{color:#FFE45C}
+.oc-bw{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:6px 22px 6px 18px;border-left:1px solid rgba(255,255,255,.2);min-width:200px;max-width:330px}
+.bwl{display:flex;justify-content:space-between;gap:12px;align-items:baseline;white-space:nowrap;font-size:.78em}
+.bwl span{overflow:hidden;text-overflow:ellipsis;font-weight:700;opacity:.92}
+.bwl b{font-family:var(--f-disp);color:#7CFFB2;font-size:1.1em}
+.bls{display:flex;gap:5px;flex-wrap:nowrap;min-height:1.5em}
+.bl{min-width:1.45em;height:1.45em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);font-family:var(--f-disp);font-weight:800;font-size:.62em;padding:0 .3em}
+.bl.k-four{background:#2F6BE0}.bl.k-six{background:#12A860}.bl.k-w{background:#E03A28}.bl.k-ex{background:#C58A00}
+.oc-info{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;padding:0 20px;background:linear-gradient(90deg,#060E22,#0E1E45);font-size:.6em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.12)}
+.oc-info em{font-style:normal;opacity:.7;margin-right:4px}
+.oc-info b{color:#FFE45C;font-family:var(--f-disp);font-size:1.12em}
+.oi-l,.oi-r{white-space:nowrap;flex:0 0 auto}
+.oi-c{flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:oifade .6s ease-out}
+.oi-c.hot{color:#111;background:#FFC400;border-radius:4px;padding:2px 10px}
+.oi-c.hot b{color:#111}
+@keyframes oifade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fhb{background:#FFC400;color:#111;border-radius:4px;padding:1px 9px;font-weight:800;animation:ovblink 1s infinite}
+.oc-fl{flex:1;min-width:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:22px;padding:6px 40px 6px 40px;font-family:var(--f-disp);text-align:center;margin-left:-6px;z-index:0}
+.oc-fl b{font-size:2.35em;line-height:1;letter-spacing:.04em;white-space:nowrap;text-shadow:0 3px 0 rgba(0,0,0,.3);animation:flpop .5s cubic-bezier(.2,1.4,.4,1)}
+.oc-fl span{font-size:.95em;font-family:var(--f-body);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;max-width:40%}
+.oc-fl:after{content:'';position:absolute;top:0;bottom:0;width:28%;left:-40%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0));transform:skewX(-20deg);animation:flshine 2.2s ease-in-out infinite}
+@keyframes flpop{from{transform:scale(.55)}to{transform:none}}
+@keyframes flshine{0%{left:-40%}60%,100%{left:130%}}
+.oc-fl s{position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:#FFE45C;opacity:0;animation:spk 1.5s ease-out infinite;z-index:2}
+@keyframes spk{0%{opacity:1;transform:rotate(var(--a)) translateX(20px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(.3)}}
+.oc-fl.fl-four{background:linear-gradient(135deg,#3B7BF0,#1B3F9A)}
+.oc-fl.fl-six{background:linear-gradient(135deg,#17C46F,#0A6B3A)}
+.oc-fl.fl-w{background:linear-gradient(135deg,#EE4D36,#A01B0D)}
+.oc-fl.fl-fifty,.oc-fl.fl-win{background:linear-gradient(135deg,#FFE95E,#F0A400);color:#1A1200}
+.oc-fl.fl-team{background:linear-gradient(135deg,#8247E0,#4A1F94)}
+.ovst.cmp .oc-bw,.ovst.cmp .oc-info{display:none}
+.ovst.nw .oc-main{flex-wrap:wrap}
+.ovst.nw .oc-team{flex:1 1 auto;min-width:0;max-width:none;clip-path:none;margin:0;padding:8px 14px}
+.ovst.nw .oc-score{flex:0 0 auto;clip-path:none;margin:0;padding:6px 18px}
+.ovst.nw .oc-mid{flex:1 1 100%;order:3;padding:8px 16px}
+.ovst.nw .oc-bw{flex:1 1 100%;order:4;max-width:none;border-left:0;border-top:1px solid rgba(255,255,255,.18);padding:8px 16px}
+.ovst.nw .oc-fl{flex:1 1 100%;order:3;margin:0;min-height:96px}
+.ovst.nw .oc-fl span{max-width:46%}
+
 .ov-tag{align-self:flex-start;background:#0B4D2C;color:#FFE45C;font-weight:800;font-size:.8em;letter-spacing:.07em;text-transform:uppercase;padding:.25em .9em;border-radius:.6em;box-shadow:0 0 0 .1em #FFD400;margin-bottom:-.35em;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .ov-tick{background:rgba(4,16,10,.95);color:#fff;border-radius:.6em;overflow:hidden;white-space:nowrap;font-weight:700;font-size:.85em;padding:.3em 0;box-shadow:0 0 0 .1em #FFD400}
 .ov-tick span{display:inline-block;padding-left:100%;animation:ovtk 18s linear infinite}
@@ -215,38 +279,11 @@ body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:
 .xi{display:grid;grid-template-columns:1fr 1fr}
 .xi>div:first-child{border-right:1px solid rgba(255,255,255,.2)}
 .xi h5{margin:0;padding:.35em .9em;background:rgba(255,255,255,.1);color:#FFE45C;font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.05em;font-size:1.05em}
-.ovbar{position:relative;display:flex;font-size:1em;align-items:stretch;border-radius:14px;overflow:hidden;font-size:clamp(16px,2.5vw,40px);color:#fff;box-shadow:0 0 0 .12em #FFD400,0 10px 34px rgba(0,0,0,.6);font-family:var(--f-body);flex-wrap:wrap}
-.ov-l{background:linear-gradient(180deg,#FFE45C,#FFC400);color:#1B1300;padding:.35em .9em;display:flex;align-items:baseline;gap:.6em;border-right:.18em solid #0B4D2C}
-.ov-t{font-family:var(--f-disp);text-transform:uppercase;color:#0B4D2C;font-size:1.05em;font-weight:800;letter-spacing:.04em}
-.ov-s{font-family:var(--f-disp);font-size:2.7em;font-weight:700;line-height:1;color:#111}
-.ov-s b{font-weight:800}
-.ov-o{font-size:.85em;font-weight:700;color:#3A2800}
-.ov-m{background:rgba(4,16,10,.95);padding:.4em 1em;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.25em}
-.ov-row{display:flex;gap:1em;align-items:center;flex-wrap:wrap}
-.ov-row.dim{font-size:.85em}
-.ob{font-weight:700;color:#fff}
-.ob b{font-family:var(--f-disp);font-size:1.2em;color:#7CFFB2}
-.ob i{opacity:.8;font-style:normal}
-.ob.st{background:#FFD400;color:#111;border-radius:.4em;padding:.05em .5em}
-.ob.st b{color:#111}
-.obls{display:inline-flex;gap:.3em}
-.obl{min-width:1.8em;height:1.8em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.25);font-family:var(--f-disp);font-weight:800;font-size:.95em;padding:0 .25em}
-.obl.k-four{background:#2B63D1}.obl.k-six{background:#12A05C}.obl.k-w{background:#D8402B}.obl.k-ex{background:#B97F00}
-.ofh{background:#FFD400;color:#3A2800;font-weight:800;border-radius:.4em;padding:0 .5em}
-.ov-r{background:rgba(2,10,6,.97);padding:.4em 1em;display:flex;align-items:center;font-size:.9em;font-weight:700;border-left:.15em solid rgba(255,255,255,.25)}
-.ov-fl{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:.8em;padding:.2em 1em;color:#fff;font-family:var(--f-disp);text-align:center;animation:ovpulse 1s ease-in-out infinite alternate}
-.ov-fl b{font-size:1.9em;line-height:1;letter-spacing:.03em;white-space:nowrap;flex-shrink:0}
-.ov-fl span{font-size:1.05em;font-family:var(--f-body);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.ov-fl.fl-four{background:linear-gradient(135deg,#2B63D1,#1B3F8A)}
-.ov-fl.fl-six{background:linear-gradient(135deg,#14B866,#0B6B3A)}
-.ov-fl.fl-w{background:linear-gradient(135deg,#E24A33,#9E2112)}
-.ov-fl.fl-fifty,.ov-fl.fl-win{background:linear-gradient(135deg,#FFE45C,#F0A800);color:#2A1D00}
-.ov-fl.fl-team{background:linear-gradient(135deg,#7A3FD1,#4A1F94)}
-@keyframes ovpulse{from{filter:brightness(1)}to{filter:brightness(1.3)}}
 .ovp{overflow:hidden;border-radius:14px;background:rgba(4,16,10,.95);color:#fff;font-size:.85em;box-shadow:0 0 0 .12em #FFD400,0 10px 34px rgba(0,0,0,.6);font-family:var(--f-body);animation:ovup .35s ease-out}
 @keyframes ovup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .ovp h4{margin:0;padding:.45em .9em;background:linear-gradient(180deg,#FFE45C,#FFC400);color:#1B1300;font-family:var(--f-disp);font-size:1.15em;text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;gap:1em;white-space:nowrap}
 .ovp .ln{display:grid;grid-template-columns:1fr auto;gap:.8em;padding:.3em .9em;border-bottom:1px solid rgba(255,255,255,.12);align-items:baseline}
+.ovp h4 span{overflow:hidden;text-overflow:ellipsis}.ovp h4 span:last-child{flex:0 0 auto}
 .ovp .ln small{display:block;opacity:.7;font-size:.72em}
 .ovp .ln b{font-family:var(--f-disp);font-size:1.15em;color:#7CFFB2}
 .ovp .ln.no{opacity:.7}
@@ -257,16 +294,6 @@ body.ov #nav,body.ov #mini,body.ov #sheet,body.ov #toast,body.ov header{display:
 .tvst{font-size:14px;font-weight:700;margin:6px 0 0}.tvst.ok{color:#0B7A43}.tvst.bad{color:#B5361F}
 .hrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
 .tvc .btn{min-height:50px}
-.strip .ovwrap,body.strip .ovwrap{left:0;right:0;top:0;bottom:0;font-size:clamp(8px,2.1vw,22px)}
-.strip .ovbar,body.strip .ovbar{position:fixed;left:0;right:0;top:0;bottom:0;border-radius:0;box-shadow:none;flex-wrap:nowrap;font-size:clamp(8px,2.1vw,22px)}
-body.strip .ov-row{flex-wrap:nowrap;gap:.8em;white-space:nowrap}
-body.strip .ov-m{overflow:hidden}
-body.strip .ov-l{gap:.5em;padding:.3em .7em}
-body.strip .ov-r{padding:.3em .7em;white-space:nowrap}
-body.strip{background:#0A140E!important}
-body.strip .ovp{display:none}
-body.strip .ov-fl b{font-size:1.5em}
-@media (max-width:700px){body:not(.strip) .ovwrap{font-size:calc(var(--k,1)*clamp(13px,3.7vw,26px))}body:not(.strip) .ov-l{flex:1 1 100%;border-right:0;justify-content:space-between}body:not(.strip) .ov-m{flex:1 1 100%}body:not(.strip) .ov-r{flex:1 1 100%;border-left:0;justify-content:center}.ov-fl{padding:.5em .6em}}
 @media (prefers-reduced-motion:no-preference){.key{transition:transform .06s}}
 @media (max-width:380px){.runs{font-size:70px}.pl{grid-template-columns:1fr}}
 </style>
@@ -282,7 +309,7 @@ body.strip .ov-fl b{font-size:1.5em}
 <script>
 (function(){
 'use strict';
-var KEY='gao-cricket-v1',VER='v6',OVD={hide:0,pos:'b',sz:1,title:'',tick:''};
+var KEY='gao-cricket-v1',VER='v8',OVD={hide:0,pos:'b',sz:1,cmp:0,title:'',tick:''};
 var S=null, hist=[];
 var ui={tab:'score',sheet:null,sv:0,op:{st:null,ns:null,bw:null},w:{k:'bowled',who:'st',fl:null,ball:'n',r:0},ex:{k:null,bye:false},ren:null,confirm:null,sum:'',err:''};
 var setup={n:['Team A','Team B'],t:['',''],overs:6,wide:1,nb:1,fh:true,maxb:0,first:null,ovs:null};
@@ -517,30 +544,60 @@ function ovPanel(){
   }
   return '';
 }
+function vp(){
+  var w=Math.min(window.innerWidth||9999,document.documentElement.clientWidth||9999),
+      h=Math.min(window.innerHeight||9999,document.documentElement.clientHeight||9999,(window.visualViewport&&window.visualViewport.height)||9999);
+  return {w:w,h:h};
+}
+function ovItems(I){
+  var a=[],cr=I.balls?I.runs*6/I.balls:0,ps=I.runs-(I.fow.length?I.fow[I.fow.length-1].s:0);
+  if(S.over){a.push('<b>'+esc(S.result)+'</b>');return a}
+  if(I.target!=null){var need=I.target-I.runs,left=S.cfg.overs*6-I.balls;
+    a.push('<em>TARGET</em><b>'+I.target+'</b>');
+    a.push(need>0?'<em>CHAHIYE</em><b>'+need+'</b> <em>RUN</em> <b>'+left+'</b> <em>GEND MAIN</em>':'<b>TARGET POORA HO GAYA</b>');
+    if(need>0&&left>0)a.push('<em>REQUIRED RATE</em><b>'+(need*6/left).toFixed(2)+'</b>');
+  }else if(I.balls>=6)a.push('<em>PROJECTED</em><b>'+Math.round(I.runs*S.cfg.overs*6/I.balls)+'</b>');
+  a.push('<em>PARTNERSHIP</em><b>'+ps+'</b>');
+  var lw=I.fow.length?I.fow[I.fow.length-1]:null;
+  if(lw&&I.bt[lw.p])a.push('<em>LAST WICKET</em><b>'+esc(pl(I.bat,lw.p))+' '+I.bt[lw.p].r+'('+I.bt[lw.p].b+')</b>');
+  var ex=I.ex.wd+I.ex.nb+I.ex.b+I.ex.lb;
+  if(ex)a.push('<em>EXTRAS</em><b>'+ex+'</b>');
+  return a;
+}
+function sparks(n){var h='';for(var i=0;i<n;i++)h+='<s style="--a:'+Math.round(360/n*i)+'deg;--d:'+(90+(i%3)*45)+'px;animation-delay:'+((i%4)*0.09).toFixed(2)+'s"></s>';return h}
 function viewOverlay(){
-  var I=cur(),bt=S.teams[I.bat];
-  var one=function(i,star){if(i==null)return '';var x=I.bt[i];return '<span class="ob'+(star?' st':'')+'">'+esc(pl(I.bat,i))+(star?' *':'')+' <b>'+x.r+'</b> <i>('+x.b+')</i></span>'};
+  var I=cur(),bt=S.teams[I.bat],O=S.ovs||OVD,pn=ovPanel(),V=vp();
+  var nw=V.w/V.h<0.9,W=nw?560:1000;
+  var cls='ovst'+(O.pos==='t'?' top':'')+(O.cmp?' cmp':'')+(nw?' nw':'')+(ui.ovshown?'':' intro');
+  ui.ovshown=true;
+  if(pn)return '<div class="'+cls+'" style="width:'+W+'px">'+pn+'</div>';
+  if(O.hide)return '';
+  var one=function(i,star){if(i==null)return '';var x=I.bt[i];return '<div class="bt'+(star?' st':'')+'"><i class="mk">'+(star?'▶':'')+'</i><span class="nm">'+esc(pl(I.bat,i))+'</span><b>'+x.r+'</b><small>('+x.b+')</small></div>'};
   var bw=I.bowler!=null?I.bw[I.bowler]:null;
-  var balls=I.ob.map(function(b){return '<span class="obl k-'+b.k+'">'+esc(b.l)+'</span>'}).join('');
-  var info='';
-  if(S.over)info='<b>'+esc(S.result)+'</b>';
-  else if(I.target!=null){var need=I.target-I.runs,left=S.cfg.overs*6-I.balls;info='Target <b>&nbsp;'+I.target+'&nbsp;</b> · '+(need>0?'<b>&nbsp;'+need+'&nbsp;</b> run / <b>&nbsp;'+left+'&nbsp;</b> gend':'poora')}
-  else info='Run rate <b>&nbsp;'+(I.balls?(I.runs*6/I.balls).toFixed(2):'0.00')+'</b>'+(I.balls>=6?' · Anjam <b>&nbsp;'+Math.round(I.runs*S.cfg.overs*6/I.balls)+'</b>':'');
-  var fh=I.fh&&!I.done?'<span class="ofh">FREE HIT</span>':'';
-  if(ui.ovi&&Date.now()<ui.ovi.until)info='<b>'+esc(ui.ovi.txt)+'</b>';
+  var balls=I.ob.map(function(b){return '<span class="bl k-'+b.k+'">'+esc(b.l)+'</span>'}).join('');
+  var pulse=(ui.ovlast!=null&&ui.ovlast!==I.runs)?' pulse':'';ui.ovlast=I.runs;
+  var cr=I.balls?(I.runs*6/I.balls).toFixed(2):'0.00',left=S.cfg.overs*6-I.balls;
+  var items=ovItems(I);ui.ovitems=items;ui.ovri=ui.ovri||0;
+  var hot=ui.ovi&&Date.now()<ui.ovi.until;
+  var center=hot?'<div class="oi-c hot" id="ovrot"><b>'+esc(ui.ovi.txt)+'</b></div>':'<div class="oi-c" id="ovrot">'+items[ui.ovri%items.length]+'</div>';
+  var right=(I.fh&&!I.done&&!S.over)?'<span class="fhb">FREE HIT</span>':'<em>GEND BAAKI</em><b>'+Math.max(0,left)+'</b>';
   var f=ui.ovf,mid;
   if(f&&Date.now()<f.until){
     var T={four:['CHAUKKA! 4','4 run'],six:['CHAKKA! 6','6 run'],w:['OUT!',''],win:['MATCH KHATAM',''],fifty:['FIFTY!',''],team:['TEAM','']}[f.k];
-    mid='<div class="ov-fl fl-'+f.k+'"><b>'+esc(f.title||T[0])+'</b><span>'+esc(f.txt||T[1])+'</span></div>';
+    mid='<div class="oc-fl fl-'+f.k+'">'+(f.k==='six'||f.k==='four'||f.k==='fifty'?sparks(14):'')+'<b>'+esc(f.title||T[0])+'</b><span>'+esc(f.txt||T[1])+'</span></div>';
   }else{
-    mid='<div class="ov-m"><div class="ov-row">'+one(I.st,1)+one(I.ns,0)+'</div><div class="ov-row dim">'+(bw?'<span>'+esc(pl(I.bowl,I.bowler))+' <b>'+ov(bw.b)+'-'+bw.m+'-'+bw.r+'-'+bw.w+'</b></span>':'')+'<span class="obls">'+balls+'</span>'+fh+'</div></div>';
+    mid='<div class="oc-mid">'+one(I.st,1)+one(I.ns,0)+'</div><div class="oc-bw"><div class="bwl"><span>'+(bw?esc(pl(I.bowl,I.bowler)):'')+'</span><b>'+(bw?ov(bw.b)+'-'+bw.m+'-'+bw.r+'-'+bw.w:'')+'</b></div><div class="bls">'+balls+'</div></div>';
   }
-  var O=S.ovs||OVD,pn=ovPanel(),ocls=(O.pos==='t'&&!ui.strip)?' top':'',kk=ui.strip?1:(+O.sz||1);
-  if(pn)return '<div class="ovwrap'+ocls+'" style="--k:'+kk+'">'+pn+'</div>';
-  if(O.hide&&!ui.strip)return '';
-  var tag=(O.title&&!ui.strip)?'<div class="ov-tag">'+esc(O.title)+'</div>':'',tk=(O.tick&&!ui.strip)?'<div class="ov-tick"><span style="animation-duration:'+Math.max(12,Math.round(O.tick.length*0.28))+'s">'+esc(O.tick)+'</span></div>':'';
-  return '<div class="ovwrap'+ocls+'" style="--k:'+kk+'">'+tag+'<div class="ovbar"><div class="ov-l"><span class="ov-t">'+esc(bt.name)+'</span><span class="ov-s"><b>'+I.runs+'</b>/'+I.wkts+'</span><span class="ov-o">'+ov(I.balls)+' / '+S.cfg.overs+' ov</span></div>'+mid+'<div class="ov-r">'+info+'</div></div>'+tk+'</div>';
+  var tag=O.title?'<div class="ov-tag">'+esc(O.title)+'</div>':'',tk=O.tick?'<div class="ov-tick"><span style="animation-duration:'+Math.max(12,Math.round(O.tick.length*0.28))+'s">'+esc(O.tick)+'</span></div>':'';
+  return '<div class="'+cls+'" style="width:'+W+'px">'+tag+'<div class="oc"><div class="oc-main"><div class="oc-team"><span class="live"><i></i>LIVE</span><b>'+esc(bt.name)+'</b><small>'+(S.cur===0?'1ST':'2ND')+' INNINGS</small></div><div class="oc-score"><span class="sc'+pulse+'">'+I.runs+'<em>/</em>'+I.wkts+'</span><span class="ovr">'+ov(I.balls)+' <small>/ '+S.cfg.overs+' OV</small></span></div>'+mid+'</div><div class="oc-info"><span class="oi-l"><em>CRR</em><b>'+cr+'</b></span>'+center+'<span class="oi-r">'+right+'</span></div></div>'+tk+'</div>';
 }
+setInterval(function(){
+  if(!ui.overlay||!ui.ovitems||ui.ovitems.length<2)return;
+  if(ui.ovi&&Date.now()<ui.ovi.until)return;
+  var e=$('ovrot');if(!e)return;
+  ui.ovri=(ui.ovri||0)+1;
+  e.className='oi-c';void e.offsetWidth;e.innerHTML=ui.ovitems[ui.ovri%ui.ovitems.length];
+},4000);
 function viewWait(){
   return '<header><h1>Gao Cricket Live</h1></header><div class="card"><h2>'+(ui.vErr?'Live score nahi mil raha':'Match abhi shuru nahi hua')+'</h2><p class="muted">'+(ui.vErr?'Internet check karo aur link dobara kholo.':'Jaise hi scorer match shuru karega, score yahan apne aap aa jayega. Page refresh karne ki zaroorat nahi.')+'</p></div>';
 }
@@ -671,7 +728,6 @@ function viewMenu(){
    '<div class="card"><h3>Match ki setting</h3><p>'+esc(S.teams[0].name)+' vs '+esc(S.teams[1].name)+'</p><p class="muted">'+S.cfg.overs+' over · Wide '+S.cfg.wide+' run · No Ball '+S.cfg.nb+' run · Free Hit '+(S.cfg.fh?'ON':'OFF')+(S.cfg.maxb?' · Bowler max '+S.cfg.maxb+' over':'')+'</p></div>'+
    '<div class="card"><h3>Live link (sab ke liye)</h3><p class="muted">Ye link kisi ko bhi WhatsApp karo. Login ya Claude account nahi chahiye. Naye match pe bhi yehi link chalta hai.</p><textarea id="lvurl" readonly style="min-height:70px">'+esc(baseUrl()+'#live='+live.code)+'</textarea><button class="btn pri" data-a="copylink">Link copy karo</button><p id="livest">'+liveStatus()+'</p></div>'+
    '<div class="card"><h3>TV jaisa score (live video ke liye)</h3><p class="muted">Ye link OBS ya streaming app main "Browser source" ya "Web overlay" main daalo. Video ke neeche TV jaisi score patti aayegi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#overlay='+live.code)+'</textarea><button class="btn pri" data-a="copyov">Overlay link copy karo</button></div>'+
-   '<div class="card"><h3>Phone streaming app ke liye (sirf patti)</h3><p class="muted">Agar Streamlabs main patti ke peeche safed dabba aaye to ye link use karo. Patti poori layer bhar degi.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#strip='+live.code)+'</textarea><button class="btn pri" data-a="copystrip">Strip link copy karo</button></div>'+
    '<div class="card"><h3>Dusre phone se score likhna ho</h3><p class="muted">Live wale phone pe score nahi likh sakte. Ye link dusre phone pe kholo. Us phone se score likhne par isi code ki patti badlegi. Us phone pe naya match shuru karna hoga.</p><textarea readonly style="min-height:70px">'+esc(baseUrl()+'#scorer='+live.code)+'</textarea><button class="btn pri" data-a="copyscorer">Scorer link copy karo</button></div>'+
    '<div class="card"><h3>WhatsApp pe bhejo</h3><button class="btn pri" data-a="copy">Score copy karo</button>'+(ui.sum?'<textarea id="sumbox" readonly style="min-height:180px">'+esc(ui.sum)+'</textarea>':'')+'</div>';
   var O3=S.ovs||OVD,ch=function(f,v,t){return '<button class="chip'+(String(O3[f])===String(v)?' on':'')+'" data-a="tvs" data-f="'+f+'" data-v="'+v+'">'+t+'</button>'};
@@ -680,7 +736,8 @@ function viewMenu(){
    '<div class="field"><label for="ovk">Neeche chalti line (ticker)</label><input type="text" id="ovk" maxlength="90" placeholder="Sponsor ya message likho" value="'+esc(O3.tick||'')+'"></div>'+
    '<button class="btn pri" data-a="ovtxt">Text save karo</button>'+
    '<h3 style="margin-top:14px">Patti kahan</h3><div class="chips">'+ch('pos','b','Neeche')+ch('pos','t','Upar')+'</div>'+
-   '<h3 style="margin-top:10px">Patti ka size</h3><div class="chips">'+ch('sz','0.85','Chota')+ch('sz','1','Medium')+ch('sz','1.2','Bara')+'</div>'+
+   '<h3 style="margin-top:10px">Patti ka size (score kat raha ho to chhota karo)</h3><div class="chips">'+ch('sz','0.5','Bahut chhota')+ch('sz','0.65','Chhota')+ch('sz','0.8','Thora chhota')+ch('sz','1','Medium')+ch('sz','1.2','Bara')+'</div>'+
+   '<h3 style="margin-top:10px">Compact patti (kam lines)</h3><div class="chips">'+ch('cmp','0','Poori')+ch('cmp','1','Compact')+'</div>'+
    '<h3 style="margin-top:10px">Patti</h3><div class="chips">'+ch('hide','0','Dikhao')+ch('hide','1','Chhupao')+'</div></div>';
   var HI=[];try{HI=JSON.parse(localStorage.getItem('gao-hist')||'[]')}catch(e){}
   if(HI.length)h+='<div class="card"><h3>Pichle matches</h3>'+HI.map(function(x,i){return '<div class="hrow"><div><b>'+esc(x.n)+'</b><div class="muted" style="font-size:13px">'+esc(x.r)+'</div></div><button class="btn sm" data-a="hcopy" data-i="'+i+'">Copy</button></div>'}).join('')+'</div>';
@@ -783,18 +840,18 @@ function archive(){
 function tvStatus(){
   var h=live.hb;if(!h)return '📺 TV patti abhi nahi mili. Overlay phone pe link khula ho to 3 minute tak ruko.';
   var ago=Math.max(0,Math.round((Date.now()-h.t)/1000)),ok=ago<420,mm=ago>=90?Math.round(ago/60)+' min pehle':ago+' sec pehle';
-  return (ok?'✅ TV patti connected':'⚠️ TV patti band lagti hai')+' ('+h.v+(h.m==='strip'?', strip layer — scoreboard nahi dikhega':'')+') · '+mm;
+  return (ok?'✅ TV patti connected':'⚠️ TV patti band lagti hai')+' ('+h.v+(h.z?', layer '+h.z:'')+(h.m==='strip'?', strip layer — scoreboard nahi dikhega':'')+') · '+mm;
 }
 function startHbListen(){
   if(ui.viewer||ui.overlay||startHbListen.on)return;startHbListen.on=true;
   try{var es=new EventSource(topicUrl(live.code)+'-hb/sse?since=15m');
     es.onmessage=function(ev){var d;try{d=JSON.parse(ev.data)}catch(e){return}
-      if(d.event!=='message')return;var m=String(d.message||'').match(/^hb:(\w+):(\w+)/);if(!m)return;
-      live.hb={t:(d.time||Date.now()/1000)*1000,v:m[1],m:m[2]};var e2=$('tvst');if(e2)e2.innerHTML=tvStatus()}}catch(e){}
+      if(d.event!=='message')return;var m=String(d.message||'').match(/^hb:(\w+):(\w+)(?::(\d+x\d+))?/);if(!m)return;
+      live.hb={t:(d.time||Date.now()/1000)*1000,v:m[1],m:m[2],z:m[3]||''};var e2=$('tvst');if(e2)e2.innerHTML=tvStatus()}}catch(e){}
   setInterval(function(){var e3=$('tvst');if(e3)e3.innerHTML=tvStatus()},15000);
 }
 function startHbSend(code){
-  var send=function(){try{fetch(topicUrl(code)+'-hb',{method:'POST',body:'hb:'+VER+':'+(ui.strip?'strip':'overlay')})}catch(e){}};
+  var send=function(){try{fetch(topicUrl(code)+'-hb',{method:'POST',body:'hb:'+VER+':'+(ui.strip?'strip':'overlay')+':'+window.innerWidth+'x'+window.innerHeight})}catch(e){}};
   send();setInterval(send,180000);
 }
 function wl(){if(ui.viewer||ui.overlay)return;try{if(navigator.wakeLock&&!wl.l)navigator.wakeLock.request('screen').then(function(l){wl.l=l;l.addEventListener('release',function(){wl.l=null})}).catch(function(){})}catch(e){}}
@@ -891,13 +948,17 @@ function checkFlash(){
   if((fire||redo)&&ui.overlay)render()
 }
 function fitOv(){
-  if(!ui.overlay||ui.strip)return;
-  var w=document.querySelector('.ovwrap');if(!w)return;
-  w.style.fontSize='';
-  var size=parseFloat(getComputedStyle(w).fontSize),H=window.innerHeight*0.96,g=0;
-  while(w.offsetHeight>H&&size>5&&g++<80){size-=0.6;w.style.fontSize=size+'px'}
+  if(!ui.overlay)return;
+  var st=document.querySelector('.ovst');if(!st)return;
+  var V=vp(),O=(S&&S.ovs)||OVD,W=st.offsetWidth,h=st.offsetHeight;if(!W||!h)return;
+  var sw=V.w*0.97/W,sh=V.h*0.94/h,k=+O.sz||1,s2=Math.min(Math.min(sw,sh)*k,V.w*0.985/W,V.h*0.97/h,2);
+  st.style.transform='translateX(-50%) scale('+s2.toFixed(3)+')';
+  var off=Math.round(V.h*0.03)+'px';
+  if(O.pos==='t'){st.style.top=off;st.style.bottom='auto'}else{st.style.bottom=off;st.style.top='auto'}
 }
 window.addEventListener('resize',function(){fitOv()});
+try{document.fonts&&document.fonts.ready.then(function(){fitOv()})}catch(e){}
+setTimeout(fitOv,700);
 function toast(m){var t=$('toast');t.innerHTML='<div class="toast">'+esc(m)+'</div>';setTimeout(function(){t.innerHTML=''},2200)}
 
 function fixW(){
@@ -973,7 +1034,7 @@ if(sm){try{localStorage.setItem('gao-code',sm[1].toLowerCase())}catch(e){}}
 live.code=getCode();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('sw.js').catch(function(){})}
 var wm=location.hash.match(/^#(live|overlay|strip)=([a-z0-9]+)/i);
-if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true;if(m1==='strip')ui.strip=true}startViewer(wm[2])}else{render();if(S)pushLive(true);startHbListen();wl()}
+if(wm){var m1=wm[1].toLowerCase();if(m1==='overlay'||m1==='strip'){ui.overlay=true}startViewer(wm[2])}else{render();if(S)pushLive(true);startHbListen();wl()}
 })();
 </script>
 </body></html>
