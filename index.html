@@ -584,7 +584,7 @@ function ovPanel(){
   return '';
 }
 
-function introLabel(){var n=S.cfg.overs;return n===20?'T20':n===10?'T10':n+' OVER'}
+function introLabel(){return 'T20'}
 function viewIntro(O){
   var A=S.teams[0],B=S.teams[1],bat=S.teams[S.inn[0].bat],t=+((O.intro||{}).t)||0;
   var day=new Date().toLocaleDateString('en-US',{weekday:'long'}).toUpperCase();
